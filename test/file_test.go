@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	. "o/file"
+	. "autopub-server/file"
 )
 
 // 测试本地文件合并

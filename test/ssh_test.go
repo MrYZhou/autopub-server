@@ -1,8 +1,8 @@
 package main
 
 import (
+	. "autopub-server/ssh"
 	"fmt"
-	. "o/ssh"
 	"strings"
 	"testing"
 	"time"

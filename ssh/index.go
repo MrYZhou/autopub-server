@@ -10,9 +10,7 @@ import (
 	"sync"
 
 	. "github.com/MrYZhou/outil/common"
-	// . "o/common"
-
-	. "github.com/MrYZhou/outil/file"
+	. "autopub-server/file"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 )

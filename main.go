@@ -6,34 +6,22 @@ import (
 	"path"
 	"strings"
 
+	. "github.com/MrYZhou/outil/command"
 	"github.com/gofiber/fiber/v2"
 
-	. "github.com/MrYZhou/outil/file"
-	. "github.com/MrYZhou/outil/ssh"
+	// "github.com/MrYZhou/outil/file"
+	// "github.com/MrYZhou/outil/ssh"
 	// 用点的意思是可以不用模块在点方法,否则要file.某个方法 ssh.某个方法
-	// . "autopub-server/file"
-	// . "autopub-server/ssh"
+	. "autopub-server/file"
+	. "autopub-server/ssh"
 )
 
 // 定义结构体
 type O struct{}
 type Base struct{}
 
-// 定义一个 Student 结构体，包含一个字段 school
-type Student struct {
-    school string
-}
-// 读取配置文件的参数
+// 初始化环境
 func InitEnv() {
-	// godotenv.Load("C:/oenv/.env")
-}
-// 保存配置
-func (o *O) Config(filePath string) {
-	if filePath == "." {
-		filePath = "./.env"
-	}
-	TransFile(filePath, "C:/oenv/.env")
-	fmt.Println("配置完成")
 }
 
 // 执行打包命令
@@ -45,24 +33,22 @@ func packageCode(pubType string) {
 		Run(os.Getenv("javaProjectPath"), "mvn clean -Dmaven.test.skip=true package")
 	}
 }
-
-
 func main() {
-    // 创建一个新的 Fiber 应用实例
-    app := fiber.New()
-    // 初始化配置文件
+	// 创建一个新的 Fiber 应用实例
+	app := fiber.New()
+	// 初始化配置文件
 	InitEnv()
-    // 定义一个 GET 请求处理器，当访问根路径 "/" 时触发
-    app.Get("/", func(c *fiber.Ctx) error {
-    
-        return c.SendString("123")
-    })
+	// 定义一个 GET 请求处理器，当访问根路径 "/" 时触发
+	app.Get("/", func(c *fiber.Ctx) error {
 
-    // 设置服务器监听地址和端口
-    if err := app.Listen("0.0.0.0:8083"); err != nil {
-        // 如果监听失败，则输出错误信息并终止程序
-        panic(err)
-    }
+		return c.SendString("123")
+	})
+
+	// 设置服务器监听地址和端口
+	if err := app.Listen("0.0.0.0:8083"); err != nil {
+		// 如果监听失败，则输出错误信息并终止程序
+		panic(err)
+	}
 }
 
 func (b *Base) Help(command string) {
@@ -130,6 +116,15 @@ func pubCode(pubType string, c *Cli) {
 
 	}
 	fmt.Println("部署完成")
+}
+
+// 保存配置
+func (o *O) Config(filePath string) {
+	if filePath == "." {
+		filePath = "./.env"
+	}
+	TransFile(filePath, "C:/oenv/.env")
+	fmt.Println("配置完成")
 }
 
 /*
