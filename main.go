@@ -16,9 +16,6 @@ import (
 	. "autopub-server/ssh"
 )
 
-// 定义结构体
-type O struct{}
-type Base struct{}
 
 // 初始化环境
 func InitEnv() {
@@ -36,22 +33,22 @@ func packageCode(pubType string) {
 func main() {
 	// 创建一个新的 Fiber 应用实例
 	app := fiber.New()
-	// 初始化配置文件
+	// 初始化
 	InitEnv()
 	// 定义一个 GET 请求处理器，当访问根路径 "/" 时触发
 	app.Get("/", func(c *fiber.Ctx) error {
 
-		return c.SendString("123")
+		return c.SendString("autopub server")
 	})
 
 	// 设置服务器监听地址和端口
-	if err := app.Listen("0.0.0.0:8083"); err != nil {
+	if err := app.Listen("127.0.0.1:8083"); err != nil {
 		// 如果监听失败，则输出错误信息并终止程序
 		panic(err)
 	}
 }
 
-func (b *Base) Help(command string) {
+func  Help(command string) {
 	if strings.Contains(command, "help") == true {
 		fmt.Println(`使用步骤:
 		1.先在服务器安装docker,nginx
@@ -60,12 +57,12 @@ func (b *Base) Help(command string) {
 		4.o pub web 发布前端, o pub java 发布后端`)
 	}
 }
-func (b *Base) Info(command string) {
+func  Info(command string) {
 	if strings.Contains(command, "info") == true {
 		fmt.Println("create by larry!")
 	}
 }
-func (o *O) Pub(pubType string) {
+func  Pub(pubType string) {
 	c, _ := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
 
 	defer c.Client.Close()
@@ -119,7 +116,7 @@ func pubCode(pubType string, c *Cli) {
 }
 
 // 保存配置
-func (o *O) Config(filePath string) {
+func  Config(filePath string) {
 	if filePath == "." {
 		filePath = "./.env"
 	}
