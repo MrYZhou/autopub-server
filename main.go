@@ -12,8 +12,8 @@ import (
 	. "github.com/MrYZhou/outil/ssh"
 )
 
-
 var con Cli
+
 // 初始化环境
 func InitEnv() {
 	// docker 初始化.
@@ -23,7 +23,7 @@ func InitEnv() {
 
 // 执行打包命令
 func packageCode(pubType string) {
-	
+
 	fmt.Println("开始打包")
 	if pubType == "web" {
 		Run(os.Getenv("webBase"), "npm run build")
@@ -79,24 +79,11 @@ func main() {
 		panic(err)
 	}
 }
-func  Pub(pubType string) {
-	
-	
-	c  ,_:= Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
-
+func Pub() {
+	// 从数据库获取部署信息
+	c, _ := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
 	defer c.Client.Close()
 	defer c.SftpClient.Close()
-
-	if pubType == "all" {
-		PubType("java", c)
-		PubType("web", c)
-	} else {
-		PubType(pubType, c)
-	}
-}
-func PubType(name string, c *Cli) {
-	packageCode(name)
-	pubCode(name, c)
 }
 
 /*
@@ -134,7 +121,6 @@ func pubCode(pubType string, c *Cli) {
 	fmt.Println("部署完成")
 }
 
-
 /*
 init 没有生成过dockerfile文件,init为false
 */
@@ -150,7 +136,6 @@ func RunContainer(init bool, c *Cli) {
 		// 不需要输出,下面两行考虑到容器名可能已经存在,需要先移除
 		c.RunQuiet("docker stop " + javaContainerName)
 		c.RunQuiet("docker rm " + javaContainerName)
-		// 需要映射目录这样restart才有意义
 		direct = "docker run -d --name " + javaContainerName + " -p " + port + " -v " + remoteJarHome + ":/java " + imageName
 	} else {
 		direct = "docker restart " + javaContainerName
@@ -159,6 +144,8 @@ func RunContainer(init bool, c *Cli) {
 }
 
 /*
+主要就是把检测是不是存在dockerfile说明部署过没
+
 remoteJarHome  服务器jar文件所在目录
 
 name jar文件的名字
