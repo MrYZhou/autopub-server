@@ -16,7 +16,6 @@ import (
 	. "autopub-server/ssh"
 )
 
-
 // 初始化环境
 func InitEnv() {
 }
@@ -30,15 +29,46 @@ func packageCode(pubType string) {
 		Run(os.Getenv("javaProjectPath"), "mvn clean -Dmaven.test.skip=true package")
 	}
 }
+
+// model实体定义
+type User struct {
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
 func main() {
 	// 创建一个新的 Fiber 应用实例
 	app := fiber.New()
 	// 初始化
 	InitEnv()
-	// 定义一个 GET 请求处理器，当访问根路径 "/" 时触发
 	app.Get("/", func(c *fiber.Ctx) error {
 
 		return c.SendString("autopub server")
+	})
+	// 创建一个处理POST JSON请求的路由
+	app.Post("/user", func(c *fiber.Ctx) error {
+		var user User // 创建一个新的User实例用于接收解析后的JSON数据
+
+		// 从请求体中读取JSON内容并反序列化
+		if err := c.BodyParser(&user); err != nil {
+			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
+		}
+
+		// 返回响应
+		return c.JSON(user)
+	})
+
+	app.Get("/help", func(c *fiber.Ctx) error {
+
+		return c.SendString(`
+		设计思路:
+		1.先在服务器安装docker,nginx
+		2.在服务器编写nginx配置
+		3.前置条件环境资源（一般就是服务器连接配置）
+		4.把每一项作为一个env item(环境项).新建一个任务，任务包含多个环境项构成的环境链,
+		会依次执行.新建一个环境项需要选择环境信息。
+		`)
 	})
 
 	// 设置服务器监听地址和端口
