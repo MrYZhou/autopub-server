@@ -9,16 +9,21 @@ import (
 	. "github.com/MrYZhou/outil/command"
 	"github.com/gofiber/fiber/v2"
 
-	. "github.com/MrYZhou/outil/file"
 	. "github.com/MrYZhou/outil/ssh"
 )
 
+
+var con Cli
 // 初始化环境
 func InitEnv() {
+	// docker 初始化.
+	// con  ,_ := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
+	// fmt.Println(con)
 }
 
 // 执行打包命令
 func packageCode(pubType string) {
+	
 	fmt.Println("开始打包")
 	if pubType == "web" {
 		Run(os.Getenv("webBase"), "npm run build")
@@ -74,23 +79,10 @@ func main() {
 		panic(err)
 	}
 }
-
-func  Help(command string) {
-	if strings.Contains(command, "help") == true {
-		fmt.Println(`使用步骤:
-		1.先在服务器安装docker,nginx
-		2.在服务器编写nginx配置
-		3.新建.env配置文件, 然后 o config .
-		4.o pub web 发布前端, o pub java 发布后端`)
-	}
-}
-func  Info(command string) {
-	if strings.Contains(command, "info") == true {
-		fmt.Println("create by larry!")
-	}
-}
 func  Pub(pubType string) {
-	c := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
+	
+	
+	c  ,_:= Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
 
 	defer c.Client.Close()
 	defer c.SftpClient.Close()
@@ -142,14 +134,6 @@ func pubCode(pubType string, c *Cli) {
 	fmt.Println("部署完成")
 }
 
-// 保存配置
-func  Config(filePath string) {
-	if filePath == "." {
-		filePath = "./.env"
-	}
-	TransFile(filePath, "C:/oenv/.env")
-	fmt.Println("配置完成")
-}
 
 /*
 init 没有生成过dockerfile文件,init为false

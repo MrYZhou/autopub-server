@@ -15,3 +15,8 @@ func TestCombineFile(t *testing.T) {
 func TestSliceFile(t *testing.T) {
 	SliceFile("/root/goenv/o/test","/root/goenv/o/o.exe",2)
 }
+
+// 测试本地slice
+func TestTransFile(t *testing.T) {
+	TransFile("./.env", "C:/oenv/.env")
+}
