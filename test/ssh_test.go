@@ -1,17 +1,18 @@
 package main
 
 import (
-	. "autopub-server/ssh"
 	"fmt"
 	"strings"
 	"testing"
 	"time"
+
+	. "github.com/MrYZhou/outil/ssh"
 )
 
 // 测试远程主机的上传
 func Test(t *testing.T) {
 	bT := time.Now()
-	c,_ := Server("121.5.68.243:22", "root", "!123qweA")
+	c ,_:= Server("121.5.68.243:22", "root", "!123qweA")
 	fileName := "/root/goenv/o/main.go"
 	fileList := c.SliceUpload("/root/java31", fileName, 5)
 	fmt.Println(fileList)
@@ -23,7 +24,7 @@ func Test(t *testing.T) {
 
 // 运行docker容器
 func TestDockerRun(t *testing.T){
-	c,_ := Server("192.168.0.62:22", "root", "JNPF@116898")
+	c ,_:= Server("192.168.0.62:22", "root", "JNPF@116898")
 	
 	c.Run("docker stop javacrmCon")
 	c.Run("docker rm javacrmCon")

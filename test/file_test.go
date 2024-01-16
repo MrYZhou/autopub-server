@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	. "autopub-server/file"
+	. "github.com/MrYZhou/outil/file"
 )
 
 // 测试本地文件合并

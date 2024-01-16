@@ -11,9 +11,6 @@ import (
 
 	. "github.com/MrYZhou/outil/file"
 	. "github.com/MrYZhou/outil/ssh"
-	// 用点的意思是可以不用模块在点方法,否则要file.某个方法 ssh.某个方法
-	// . "autopub-server/file"
-	// . "autopub-server/ssh"
 )
 
 // 初始化环境
@@ -199,9 +196,6 @@ func InitDockerfile(c *Cli, remoteJarHome string, name string) bool {
 		ftpFile.Write(b)
 		b = []byte("WORKDIR /java" + "\n")
 		ftpFile.Write(b)
-		// 因为使用-v映射方式,不需要直接添加进去
-		// b = []byte("ADD *.jar /java/app.jar" + "\n")
-		// ftpFile.Write(b)
 		b = []byte(`ENTRYPOINT ["java","-jar","/java/` + name + `"]` + "\n")
 		ftpFile.Write(b)
 		b = []byte("EXPOSE " + port)
