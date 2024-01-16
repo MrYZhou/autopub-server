@@ -9,11 +9,11 @@ import (
 	. "github.com/MrYZhou/outil/command"
 	"github.com/gofiber/fiber/v2"
 
-	// "github.com/MrYZhou/outil/file"
-	// "github.com/MrYZhou/outil/ssh"
+	. "github.com/MrYZhou/outil/file"
+	. "github.com/MrYZhou/outil/ssh"
 	// 用点的意思是可以不用模块在点方法,否则要file.某个方法 ssh.某个方法
-	. "autopub-server/file"
-	. "autopub-server/ssh"
+	// . "autopub-server/file"
+	// . "autopub-server/ssh"
 )
 
 // 初始化环境
@@ -93,7 +93,7 @@ func  Info(command string) {
 	}
 }
 func  Pub(pubType string) {
-	c, _ := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
+	c := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
 
 	defer c.Client.Close()
 	defer c.SftpClient.Close()
