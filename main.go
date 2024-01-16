@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"strings"
+	"testing"
 
 	. "github.com/MrYZhou/outil/command"
 	"github.com/gofiber/fiber/v2"
@@ -87,65 +87,10 @@ func Pub() {
 }
 
 
-/*
-上传文件到服务器部署
 
-pubType 部署的类型 web,java,all
-*/
-func pubCode(pubType string, c *Cli) {
-
-	if pubType == "web" {
-		fmt.Println("上传前端文件")
-		base := path.Join(os.Getenv("webBase"), "dist")
-		target := os.Getenv("webTarget")
-		c.UploadDir(base, target)
-	} else if pubType == "java" {
-		fmt.Println("上传jar文件")
-		jarFilePath := os.Getenv("jarFilePath")
-
-		// 获取jarFilePath的jar文件名
-		file, _ := os.Open(jarFilePath)
-		name := file.Name()
-
-		remoteJarHome := os.Getenv("remoteJarHome")
-		remoteJarFilePath := remoteJarHome + name
-		fileList := c.SliceUpload(remoteJarHome, jarFilePath, 6)
-		c.ConcatRemoteFile(fileList, remoteJarFilePath)
-		c.Run("rm -rf " + strings.Join(fileList, " "))
-		// 镜像构建
-		init := InitDockerfile(c, remoteJarHome, name)
-
-		// 运行容器
-		RunContainer(init, c)
-
-	}
-	fmt.Println("部署完成")
-}
 
 /*
-init 没有生成过dockerfile文件,init为false
-*/
-func RunContainer(init bool, c *Cli) {
-	fmt.Println("运行容器")
-	direct := ""
-	javaContainerName := os.Getenv("javaContainerName")
-	imageName := os.Getenv("imageName")
-	remoteJarHome := os.Getenv("remoteJarHome")
-	port := os.Getenv("port") + ":" + os.Getenv("port")
-
-	if init == false {
-		// 不需要输出,下面两行考虑到容器名可能已经存在,需要先移除
-		c.RunQuiet("docker stop " + javaContainerName)
-		c.RunQuiet("docker rm " + javaContainerName)
-		direct = "docker run -d --name " + javaContainerName + " -p " + port + " -v " + remoteJarHome + ":/java " + imageName
-	} else {
-		direct = "docker restart " + javaContainerName
-	}
-	c.Run(direct)
-}
-
-/*
-主要就是把检测是不是存在dockerfile说明部署过没
+主要就是把检测是不是存在dockerfile,没有说明部署过没
 
 remoteJarHome  服务器jar文件所在目录
 

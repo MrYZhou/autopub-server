@@ -3,7 +3,7 @@ module autopub-server
 go 1.21.5
 
 require (
-	github.com/MrYZhou/outil v1.13.0
+	github.com/MrYZhou/outil v1.14.0
 	github.com/gofiber/fiber/v2 v2.52.0
 	github.com/pkg/sftp v1.13.6
 	golang.org/x/crypto v0.14.0
