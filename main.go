@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path"
-	"testing"
 
 	. "github.com/MrYZhou/outil/command"
 	"github.com/gofiber/fiber/v2"
@@ -61,18 +59,6 @@ func main() {
 		return c.JSON(user)
 	})
 
-	app.Get("/help", func(c *fiber.Ctx) error {
-
-		return c.SendString(`
-		设计思路:
-		1.先在服务器安装docker,nginx
-		2.在服务器编写nginx配置
-		3.前置条件环境资源（一般就是服务器连接配置）
-		4.把每一项作为一个env item(环境项).新建一个任务，任务包含多个环境项构成的环境链,
-		会依次执行.新建一个环境项需要选择环境信息。
-		`)
-	})
-
 	// 设置服务器监听地址和端口
 	if err := app.Listen("127.0.0.1:8083"); err != nil {
 		// 如果监听失败，则输出错误信息并终止程序
@@ -81,52 +67,8 @@ func main() {
 }
 func Pub() {
 	// 从数据库获取部署信息
+	
 	c, _ := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
 	defer c.Client.Close()
 	defer c.SftpClient.Close()
-}
-
-
-
-
-/*
-主要就是把检测是不是存在dockerfile,没有说明部署过没
-
-remoteJarHome  服务器jar文件所在目录
-
-name jar文件的名字
-*/
-func InitDockerfile(c *Cli, remoteJarHome string, name string) bool {
-	dockerFilePath := path.Join(remoteJarHome, "Dockerfile")
-	init := c.IsFileExist(dockerFilePath)
-	if init == false {
-		// 创建dockerfile文件
-		ftpFile, _ := c.CreateFile(dockerFilePath)
-
-		version := os.Getenv("jdk")
-		port := os.Getenv("port")
-		if version == "" {
-			version = "8"
-		}
-
-		b := []byte("FROM openjdk:" + version + "-slim" + "\n")
-		ftpFile.Write(b)
-		b = []byte("WORKDIR /java" + "\n")
-		ftpFile.Write(b)
-		b = []byte(`ENTRYPOINT ["java","-jar","/java/` + name + `"]` + "\n")
-		ftpFile.Write(b)
-		b = []byte("EXPOSE " + port)
-		ftpFile.Write(b)
-		imageName := os.Getenv("imageName")
-		fmt.Println("正在构建镜像")
-		build := "docker build -f " + dockerFilePath + " -t  " + imageName + " " + remoteJarHome
-		msg, err := c.Run(build)
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println(msg)
-		fmt.Println("构建完成")
-
-	}
-	return init
 }

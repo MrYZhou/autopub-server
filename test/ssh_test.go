@@ -81,15 +81,9 @@ func TestPubJAVA(t *testing.T) {
 	c.ConcatRemoteFile(fileList, remoteJarFilePath)
 	c.Run("rm -rf " + strings.Join(fileList, " "))
 	
-
-
 }
 
-func TestInitDockerfile(t *testing.T) {
-	// 镜像构建
-	// init := InitDockerfile(c, remoteJarHome, name)
 
-}
 
 
 /*
