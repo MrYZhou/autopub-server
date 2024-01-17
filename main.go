@@ -12,14 +12,6 @@ import (
 	. "autopub-server/api"
 )
 
-var con Cli
-
-// 初始化环境
-func InitEnv() {
-	// docker 初始化.
-	// con  ,_ := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
-	// fmt.Println(con)
-}
 
 // 执行打包命令
 func packageCode(pubType string) {
@@ -48,12 +40,11 @@ type JarUpload struct {
 func main() {
 	// 创建一个新的 Fiber 应用实例
 	app := fiber.New()
-	// 初始化
-	InitEnv()
-	app.Get("/", func(c *fiber.Ctx) error {
 
+	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("autopub server")
 	})
+	
 	app.Get("pubweb",func(c *fiber.Ctx) error {
 		Pubweb("D:/Users/JNPF/Desktop/jnpf-crm2-web","/root/testweb")
 		return c.SendString("ok")
@@ -66,19 +57,7 @@ func main() {
 			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
 		}
 		Pubjava(model.JavaProjectPath,model.LocalJarPath,model.RemotePath)
-		return c.SendString("ok")
-	})
-	// 创建一个处理POST JSON请求的路由
-	app.Post("/user", func(c *fiber.Ctx) error {
-		var user User // 创建一个新的User实例用于接收解析后的JSON数据
-
-		// 从请求体中读取JSON内容并反序列化
-		if err := c.BodyParser(&user); err != nil {
-			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
-		}
-
-		// 返回响应
-		return c.JSON(user)
+		return c.JSON(model)
 	})
 
 	// 设置服务器监听地址和端口
