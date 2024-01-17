@@ -5,3 +5,4 @@ chunk*
 *.exe
 .VSCodeCounter
 main
+test/local_test.go
