@@ -29,7 +29,7 @@ func main() {
 		if err := c.BodyParser(&model); err != nil {
 			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
 		}
-		err:=Pubjava(model.JavaProjectPath,model.LocalJarPath,model.RemotePath)
+		err:=Pubjava(model)
 		model.Msg = "success"
 		if err!=nil{
 			model.Msg = err.Error()

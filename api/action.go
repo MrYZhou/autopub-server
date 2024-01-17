@@ -26,7 +26,7 @@ func Pubweb(localPath string, remotePath string) {
 *
 发布java应用
 */
-func Pubjava(model *JarUpload) error {
+func Pubjava(model JarUpload) error {
 	javaProjectPath := model.JavaProjectPath
 	localJarPath := model.LocalJarPath
 	remotePath := model.RemotePath
