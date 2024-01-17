@@ -6,7 +6,7 @@ COPY go.sum ./
 RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go mod download
 COPY . .
-RUN  go build -o main .
+RUN  go build -ldflags '-w -s' -o main .
 
 # 第二阶段：制作干净的生产镜像
 FROM alpine:latest
