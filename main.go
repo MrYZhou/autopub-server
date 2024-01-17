@@ -39,6 +39,12 @@ type User struct {
 	Email string `json:"email"`
 }
 
+type JarUpload struct {
+	JavaProjectPath string  `json:"javaProjectPath"`
+	LocalJarPath string `json:"localJarPath"`
+	RemotePath string `json:"remotePath"`
+}
+
 func main() {
 	// 创建一个新的 Fiber 应用实例
 	app := fiber.New()
@@ -49,7 +55,17 @@ func main() {
 		return c.SendString("autopub server")
 	})
 	app.Get("pubweb",func(c *fiber.Ctx) error {
-		Pubweb("D:/Users/JNPF/Desktop/jnpf-crm2-web")
+		Pubweb("D:/Users/JNPF/Desktop/jnpf-crm2-web","/root/testweb")
+		return c.SendString("ok")
+	})
+
+	app.Post("pubjava",func(c *fiber.Ctx) error {
+		var model JarUpload
+		// 从请求体中读取JSON内容并反序列化
+		if err := c.BodyParser(&model); err != nil {
+			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
+		}
+		Pubjava(model.JavaProjectPath,model.LocalJarPath,model.RemotePath)
 		return c.SendString("ok")
 	})
 	// 创建一个处理POST JSON请求的路由
@@ -70,11 +86,4 @@ func main() {
 		// 如果监听失败，则输出错误信息并终止程序
 		panic(err)
 	}
-}
-func Pub() {
-	// 从数据库获取部署信息
-	
-	c, _ := Server(os.Getenv("host"), os.Getenv("user"), os.Getenv("password"))
-	defer c.Client.Close()
-	defer c.SftpClient.Close()
 }

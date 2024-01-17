@@ -10,19 +10,33 @@ import (
 /**
 发布web应用
 */
-func Pubweb(webBase string) {
-	
+func Pubweb(localPath string,remotePath string) {
 	con :=  Myserver()
 	defer con.Client.Close()
 	defer con.SftpClient.Close()
 	Info("开始打包")
-	Run(webBase, "npm run build")
+	Run(localPath, "npm run build")
 	Info("开始上传")
-	con.UploadDir(webBase+"/dist","/root/testweb")
+	con.UploadDir(localPath+"/dist",remotePath)
+	Info("上传完毕")
+}
+/**
+
+*/
+func Pubjava(javaProjectPath string, localJarPath string,remotePath string) {
+	con :=  Myserver()
+	defer con.Client.Close()
+	defer con.SftpClient.Close()
+	Info("开始打包")
+	// 如果有mvnd使用mvnd
+	Run(javaProjectPath, "mvn clean package")
+	Info("开始上传")
+	con.UploadFile(localJarPath,remotePath)
+	con.Run("echo success")
 	Info("上传完毕")
 }
 
-func TestTransfer(localPath,serverPath string) {
+func TestTransfer(localPath,remotePath string) {
 	Info("转移") 
 }
 
