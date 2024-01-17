@@ -38,7 +38,7 @@ func main() {
 	})
 
 	// 设置服务器监听地址和端口
-	if err := app.Listen("127.0.0.1:8083"); err != nil {
+	if err := app.Listen(":8083"); err != nil {
 		// 如果监听失败，则输出错误信息并终止程序
 		panic(err)
 	}

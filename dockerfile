@@ -6,11 +6,11 @@ COPY go.sum ./
 RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go mod download
 COPY . .
-RUN  go build -ldflags '-w -s' -o main .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64  go build -ldflags '-w -s' -o main .
 
 # 第二阶段：制作干净的生产镜像
 FROM alpine:latest
-RUN apk --no-cache add ca-certificates
+# RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=builder /app/main .
 CMD ["./main"]
