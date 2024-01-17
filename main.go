@@ -8,6 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	. "github.com/MrYZhou/outil/ssh"
+
+	. "autopub-server/api"
 )
 
 var con Cli
@@ -45,6 +47,10 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 
 		return c.SendString("autopub server")
+	})
+	app.Get("pubweb",func(c *fiber.Ctx) error {
+		Pubweb("D:/Users/JNPF/Desktop/jnpf-crm2-web")
+		return c.SendString("ok")
 	})
 	// 创建一个处理POST JSON请求的路由
 	app.Post("/user", func(c *fiber.Ctx) error {
