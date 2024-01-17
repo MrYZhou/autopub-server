@@ -23,17 +23,18 @@ func Pubweb(localPath string,remotePath string) {
 /**
 
 */
-func Pubjava(javaProjectPath string, localJarPath string,remotePath string) {
+func Pubjava(javaProjectPath string, localJarPath string,remotePath string) error{
 	con :=  Myserver()
 	defer con.Client.Close()
 	defer con.SftpClient.Close()
 	Info("开始打包")
 	// 如果有mvnd使用mvnd
-	Run(javaProjectPath, "mvn clean package")
+	Run(javaProjectPath, "mvn clean -Dfile.encoding=UTF-8 package")
 	Info("开始上传")
 	con.UploadFile(localJarPath,remotePath)
 	con.Run("echo success")
 	Info("上传完毕")
+	return nil
 }
 
 func TestTransfer(localPath,remotePath string) {

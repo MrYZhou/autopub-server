@@ -24,17 +24,11 @@ func packageCode(pubType string) {
 	}
 }
 
-// model实体定义
-type User struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-}
-
 type JarUpload struct {
 	JavaProjectPath string  `json:"javaProjectPath"`
 	LocalJarPath string `json:"localJarPath"`
 	RemotePath string `json:"remotePath"`
+	Msg string 	`json:"msg"` 
 }
 
 func main() {
@@ -56,7 +50,11 @@ func main() {
 		if err := c.BodyParser(&model); err != nil {
 			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
 		}
-		Pubjava(model.JavaProjectPath,model.LocalJarPath,model.RemotePath)
+		err:=Pubjava(model.JavaProjectPath,model.LocalJarPath,model.RemotePath)
+		model.Msg = "success"
+		if err!=nil{
+			model.Msg = err.Error()
+		}
 		return c.JSON(model)
 	})
 
