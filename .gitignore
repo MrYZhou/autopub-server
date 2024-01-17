@@ -3,6 +3,5 @@
 chunk*
 *.jar
 *.exe
-test
 .VSCodeCounter
 main
