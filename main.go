@@ -1,35 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"os"
-
-	. "github.com/MrYZhou/outil/command"
 	"github.com/gofiber/fiber/v2"
-
-	. "github.com/MrYZhou/outil/ssh"
 
 	. "autopub-server/api"
 )
 
 
-// 执行打包命令
-func packageCode(pubType string) {
 
-	fmt.Println("开始打包")
-	if pubType == "web" {
-		Run(os.Getenv("webBase"), "npm run build")
-	} else if pubType == "java" {
-		Run(os.Getenv("javaProjectPath"), "mvn clean -Dmaven.test.skip=true package")
-	}
-}
 
-type JarUpload struct {
-	JavaProjectPath string  `json:"javaProjectPath"`
-	LocalJarPath string `json:"localJarPath"`
-	RemotePath string `json:"remotePath"`
-	Msg string 	`json:"msg"` 
-}
 
 func main() {
 	// 创建一个新的 Fiber 应用实例
