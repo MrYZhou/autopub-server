@@ -11,7 +11,7 @@ import (
 *
 发布web应用
 */
-func Pubweb(localPath string, remotePath string) {
+func Pubweb(localPath string, remotePath string) error {
 	con := Myserver()
 	defer con.Client.Close()
 	defer con.SftpClient.Close()
@@ -20,6 +20,7 @@ func Pubweb(localPath string, remotePath string) {
 	Info("开始上传")
 	con.UploadDir(localPath+"/dist", remotePath)
 	Info("上传完毕")
+	return nil
 }
 
 /*
@@ -46,9 +47,6 @@ func Pubjava(model JarUpload) error {
 	return nil
 }
 
-func TestTransfer(localPath, remotePath string) {
-	Info("转移")
-}
 
 var host = "192.168.0.62:22"
 var user = "root"

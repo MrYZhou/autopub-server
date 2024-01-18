@@ -8,5 +8,11 @@ type JarUpload struct {
 	Msg             string `json:"msg"`
 }
 
+type WebrUpload struct {
+	LocalPath  string `json:"localPath"`
+	RemotePath string `json:"remotePath"`
+	Msg        string `json:"msg"`
+}
+
 func create() {
 }
