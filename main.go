@@ -26,7 +26,7 @@ func main() {
 		}
 		
 		
-		err := Pubweb(model.LocalPath,model.RemotePath)
+		err := Pubweb(model)
 		model.Msg = "success"
 		if err!=nil{
 			model.Msg = err.Error()

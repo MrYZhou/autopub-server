@@ -11,7 +11,9 @@ import (
 *
 发布web应用
 */
-func Pubweb(localPath string, remotePath string) error {
+func Pubweb(model WebrUpload) error {
+	localPath :=  model.LocalPath
+	remotePath := model.RemotePath
 	con := Myserver()
 	defer con.Client.Close()
 	defer con.SftpClient.Close()
