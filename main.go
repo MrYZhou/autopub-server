@@ -7,7 +7,7 @@ import (
 )
 
 
-
+var result = AppResult{}
 
 
 func main() {
@@ -31,6 +31,7 @@ func main() {
 		if err!=nil{
 			model.Msg = err.Error()
 		}
+		result.Success(c, model)
 		return c.JSON(model)
 	})
 
