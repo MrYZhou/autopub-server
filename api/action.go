@@ -7,8 +7,10 @@ import (
 	. "github.com/MrYZhou/outil/ssh"
 )
 
+// 此文件主要写各种事件的动作
+
+
 /*
-*
 发布web应用
 */
 func Pubweb(model WebrUpload) error {

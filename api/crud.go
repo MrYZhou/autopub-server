@@ -1,5 +1,8 @@
 package api
 
+// 此文件主要写各种模型,和crud的操作
+
+// java应用的模型
 type JarUpload struct {
 	JavaProjectPath string `json:"javaProjectPath"` // java项目根路径
 	LocalJarPath    string `json:"localJarPath"`    // 生成的jar文件路径
@@ -8,6 +11,7 @@ type JarUpload struct {
 	Msg             string `json:"msg"`             // 提示信息
 }
 
+// web应用的模型
 type WebrUpload struct {
 	LocalPath  string `json:"localPath"`  // 本地web项目路径
 	RemotePath string `json:"remotePath"` // 远程web项目路径
