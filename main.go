@@ -7,15 +7,14 @@ import (
 )
 
 
-var result = AppResult{}
-
-
 func main() {
 	// 创建一个新的 Fiber 应用实例
 	app := fiber.New()
+	// 注册自定义中间件以转换上下文
+	app.Use(CtxMiddleware)
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("autopub server")
+		return Success(c,"autopub server")
 	})
 	
 	app.Post("pubweb",func(c *fiber.Ctx) error {
@@ -25,14 +24,11 @@ func main() {
 			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
 		}
 		
-		
 		err := Pubweb(model)
-		model.Msg = "success"
 		if err!=nil{
-			model.Msg = err.Error()
+			return Fail(c,err.Error())
 		}
-		result.Success(c, model)
-		return c.JSON(model)
+		return Success(c,model)
 	})
 
 
@@ -43,11 +39,10 @@ func main() {
 			return c.Status(fiber.StatusBadRequest).SendString("Invalid JSON body")
 		}
 		err:=Pubjava(model)
-		model.Msg = "success"
 		if err!=nil{
-			model.Msg = err.Error()
+			return Fail(c,err.Error())
 		}
-		return c.JSON(model)
+		return Success(c,model)
 	})
 
 	// 设置服务器监听地址和端口
