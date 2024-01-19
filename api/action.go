@@ -38,7 +38,7 @@ func Pubjava(model JarUpload) error {
 	remotePath := model.RemotePath
 	pubCommand := model.PubCommand
 	if(pubCommand == ""){
-		pubCommand="mvn clean -Dfile.encoding=UTF-8 package"
+		pubCommand="mvn -Dfile.encoding=UTF-8 package"
 	}
 	con := Myserver()
 	defer con.Client.Close()
