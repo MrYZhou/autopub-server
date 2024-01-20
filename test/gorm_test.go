@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -15,7 +15,8 @@ type Product struct {
 
 
 func TestGorm(t *testing.T) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	dsn := "root:root@tcp(127.0.0.1:3306)/study?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
   if err != nil {
     panic("failed to connect database")
   }
