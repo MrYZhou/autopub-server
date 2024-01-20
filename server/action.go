@@ -48,10 +48,7 @@ func Pubjava(model JarUpload) error {
 	Run(javaProjectPath, pubCommand)
 	Info("开始上传")
 	con.UploadFile(localJarPath, remotePath)
-	Info("当前目录")
 	con.Run("cd /www/wwwroot/crm2.test.project.jnpf.work/java/jnpf-admin && ./server.sh restart")
-
-	con.Run("echo success")
 	Info("上传完毕")
 	return nil
 }
