@@ -14,7 +14,7 @@ func main() {
 	app.Use(CtxMiddleware)
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return Success(c, "autopub server")
+		return AppResult(c).Success("autopub server")
 	})
 
 	app.Post("pubweb", Handlepubweb)
