@@ -22,6 +22,7 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.0.6 // indirect
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/kr/fs v0.1.0 // indirect
