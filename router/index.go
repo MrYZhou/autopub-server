@@ -15,7 +15,7 @@ func Handlepubweb(c *fiber.Ctx) error {
 
 	err := Pubweb(model)
 	if err != nil {
-		return Fail(c, err.Error())
+		return AppResult(c).Fail(err.Error())
 	}
 	return AppResult(c).Success(model,"部署web完成")
 }
@@ -28,7 +28,7 @@ func Handlepubjava(c *fiber.Ctx) error {
 	}
 	err := Pubjava(model)
 	if err != nil {
-		return Fail(c, err.Error())
+		return AppResult(c).Fail(err.Error())
 	}
 	return AppResult(c).Success(model,"部署java完成")
 
