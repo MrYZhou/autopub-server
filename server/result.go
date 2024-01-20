@@ -16,12 +16,18 @@ func AppResult(c *fiber.Ctx) *MyCtx {
 }
 
 func (c *MyCtx) Success(data interface{}, msg string) error {
+	if msg == "" {
+		msg = "success"
+	}
 	c.Msg = msg
 	c.Code = 200
 	return c.Response(data)
 }
 
 func (c *MyCtx) Fail(data interface{}, msg string) error {
+	if msg == "" {
+		msg = "fail"
+	}
 	c.Msg = msg
 	c.Code = 400
 	return c.Response(data)
