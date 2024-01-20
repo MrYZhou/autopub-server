@@ -4,6 +4,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+/**
+说实话不是很满意,但是这是go不支持类名调用方法，反射鸡肋,
+方法重载也不支持,没法写方法名相同,不同参数列表导致的
+*/
+
 type MyCtx struct {
 	*fiber.Ctx
 	Msg  string
