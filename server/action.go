@@ -25,6 +25,7 @@ func Pubweb(model WebrUpload) error {
 	}
 	Info("开始上传")
 	con.UploadDir(localPath+"/dist", remotePath)
+	con.Run("/www/server/nginx/sbin/nginx -s reload")
 	Info("上传完毕")
 	return nil
 }
@@ -38,6 +39,7 @@ func Pubjava(model JarUpload) error {
 	localJarPath := model.LocalJarPath
 	remotePath := model.RemotePath
 	pubCommand := model.PubCommand
+	execCommand :=model.ExecCommand
 	if pubCommand == "" {
 		pubCommand = "mvn -Dfile.encoding=UTF-8 package"
 	}
@@ -48,7 +50,7 @@ func Pubjava(model JarUpload) error {
 	Run(javaProjectPath, pubCommand)
 	Info("开始上传")
 	con.UploadFile(localJarPath, remotePath)
-	con.Run("cd /www/wwwroot/crm2.test.project.jnpf.work/java/jnpf-admin && ./server.sh restart")
+	con.Run(execCommand)
 	Info("上传完毕")
 	return nil
 }

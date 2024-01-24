@@ -8,6 +8,7 @@ type JarUpload struct {
 	LocalJarPath    string `json:"localJarPath"`    // 生成的jar文件路径
 	RemotePath      string `json:"remotePath"`      // 远程路径
 	PubCommand      string `json:"pubCommand"`      // 发布命令或打包命令
+	ExecCommand			string `json:"execCommand"`     // 后置发布命令
 }
 
 // web应用的模型
