@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gofiber/fiber/v2"
 
 	. "autopub-server/router"
@@ -21,8 +23,13 @@ func main() {
 
 	app.Post("pubjava", Handlepubjava)
 
-	// 设置服务器监听地址和端口
-	if err := app.Listen(":8083"); err != nil {
+	// 设置服务器地址
+	mode := os.Getenv("MODE")
+	url := "127.0.0.1:8083"
+	if mode == "production" {
+		url = "0.0.0.0:8083"
+	}
+	if err := app.Listen(url); err != nil {
 		// 如果监听失败，则输出错误信息并终止程序
 		panic(err)
 	}
