@@ -47,7 +47,10 @@ func Pubjava(model JarUpload) error {
 	defer con.Client.Close()
 	defer con.SftpClient.Close()
 	Info("开始打包")
-	Run(javaProjectPath, pubCommand)
+	err:=Run(javaProjectPath, pubCommand)
+	if err != nil {
+		return err
+	}
 	Info("开始上传")
 	con.UploadFile(localJarPath, remotePath)
 	con.Run(execCommand)
