@@ -1,9 +1,9 @@
 package util
 
 import (
-	"github.com/gofiber/fiber/v2"
-
 	. "autopub-server/server"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func Init() {
