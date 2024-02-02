@@ -1,7 +1,6 @@
 package util
 
 import (
-	. "autopub-server/server"
 
 	"github.com/gofiber/fiber/v2"
 )

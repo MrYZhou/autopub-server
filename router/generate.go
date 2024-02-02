@@ -2,8 +2,7 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
-
-	. "autopub-server/server"
+	
 	. "autopub-server/util"
 )
 

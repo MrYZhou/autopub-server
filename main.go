@@ -6,7 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	. "autopub-server/router"
-	. "autopub-server/server"
 	. "autopub-server/util"
 )
 

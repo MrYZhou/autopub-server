@@ -16,6 +16,3 @@ type WebrUpload struct {
 	LocalPath  string `json:"localPath"`  // 本地web项目路径
 	RemotePath string `json:"remotePath"` // 远程web项目路径
 }
-
-func create() {
-}
