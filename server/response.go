@@ -31,9 +31,6 @@ func AppResult(c *fiber.Ctx) *MyCtx {
 func (c *MyCtx) Success(params ...interface{}) error {
 	c.Code = 200
 	c.Msg = "success"
-	if len(params) == 0 {
-		return c.Response(nil)
-	}
 	return c.judge(params)
 }
 
@@ -59,7 +56,7 @@ func (c *MyCtx) Response(data interface{}) error {
 	}
 	return c.JSON(res)
 }
-func (c *MyCtx) judge(params ...interface{}) error {
+func (c *MyCtx) judge(params []interface{}) error {
 	// 参数为一个的时候,判断是字符串还是对象
 	if len(params) == 1 {
 		paramType := reflect.TypeOf(params[0])	
