@@ -7,11 +7,12 @@ import (
 
 	. "autopub-server/router"
 	. "autopub-server/server"
+	. "autopub-server/util"
 )
 
 func main() {
 	// 创建一个Fiber 应用实例
-	app := fiber.New()
+	app := App()
 	// 注册自定义中间件以转换上下文
 	app.Use(CtxMiddleware)
 

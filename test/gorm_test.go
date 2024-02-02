@@ -3,9 +3,14 @@ package main
 import (
 	"testing"
 
+	"log"
+	"time"
+
+	"github.com/acmestack/gorm-plus/gplus"
 	"github.com/bwmarrin/snowflake"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var node *snowflake.Node
@@ -16,38 +21,56 @@ func getId() string{
   return node.Generate().String()
 }
 
-type Product struct {
-	gorm.Model
-	ID    string `gorm:"primarykey"`
-	Code  string
-	Price uint
+
+
+type User struct {
+  ID        int64
+  Username  string
+  Password  string
+  Address   string
+  Age       int
+  Phone     string
+  Score     int
+  Dept      string
+  CreatedAt time.Time
+  UpdatedAt time.Time
+}
+
+var gormDb *gorm.DB
+func init() {
+  dsn := "root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
+  var err error
+  gormDb, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+    Logger: logger.Default.LogMode(logger.Info),
+  })
+  if err != nil {
+    log.Println(err)
+  }
+
+  // 初始化gplus
+  gplus.Init(gormDb)
 }
 
 func TestGorm(t *testing.T) {
-	dsn := "root:root@tcp(127.0.0.1:3306)/study?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	}
+	dsn := "root:root@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
+  var err error
+  gormDb, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+    Logger: logger.Default.LogMode(logger.Info),
+  })
+  if err != nil {
+    log.Println(err)
+  }
 
-	// 迁移 schema
-	db.AutoMigrate(&Product{})
+  // 初始化gplus
+  gplus.Init(gormDb)
 
-	// Create
-	db.Create(&Product{ID: getId(), Code: "D42", Price: 100})
+	users, resultDb := gplus.SelectList[User](nil)
+  log.Println("error:", resultDb.Error)
+  log.Println("RowsAffected:", resultDb.RowsAffected)
+  for _, user := range users {
+    log.Println("user:", user)
+  }
 
-	// Read
-	var product Product
-	db.First(&product, 1)                 // 根据整型主键查找
-	db.First(&product, "code = ?", "D42") // 查找 code 字段值为 D42 的记录
-
-	// Update - 将 product 的 price 更新为 200
-	db.Model(&product).Update("Price", 200)
-	// Update - 更新多个字段
-	db.Model(&product).Updates(Product{Price: 200, Code: "F42"}) // 仅更新非零值字段
-	db.Model(&product).Updates(map[string]interface{}{"Price": 200, "Code": "F42"})
-
-	// Delete - 删除 product
-	db.Delete(&product, 1)
+	
 
 }
