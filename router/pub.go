@@ -4,7 +4,25 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	. "autopub-server/server"
+	. "autopub-server/util"
 )
+
+func init(){
+	app := App()
+
+	// 创建子路由
+	// api := app.Group("/pub")
+	// api.Get("/a",Handle1 )
+
+	app.Get("/a",Handle1)
+
+	app.Post("pubweb", Handlepubweb)
+
+	app.Post("pubjava", Handlepubjava)
+}
+func Handle1(c *fiber.Ctx) error {
+	return AppResult(c).Success()
+}
 
 func Handlepubweb(c *fiber.Ctx) error {
 	var model WebrUpload

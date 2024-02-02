@@ -13,16 +13,13 @@ import (
 func main() {
 	// 创建一个Fiber 应用实例
 	app := App()
-	// 注册自定义中间件以转换上下文
-	app.Use(CtxMiddleware)
+	
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return AppResult(c).Success("autopub server")
 	})
 
-	app.Post("pubweb", Handlepubweb)
-
-	app.Post("pubjava", Handlepubjava)
+	Router()
 
 	// 设置服务器地址
 	mode := os.Getenv("MODE")
