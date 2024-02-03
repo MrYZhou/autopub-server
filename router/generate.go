@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
-	
+
 	. "autopub-server/util"
 )
 
@@ -11,12 +11,10 @@ func init(){
 	app := App()
 	// 创建子路由
 	api := app.Group("/gen")
-	api.Get("/a", func(c *fiber.Ctx) error {
-		return AppResult(c).Success()
-	})
+	api.Get("/", gen)
 }
 
-func Generate(c *fiber.Ctx) error {
+func gen(c *fiber.Ctx) error {
 	
 	return AppResult(c).Success()
 }
