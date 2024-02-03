@@ -37,22 +37,9 @@ type User struct {
 }
 
 var gormDb *gorm.DB
-func init() {
-  dsn := "root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
-  var err error
-  gormDb, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-    Logger: logger.Default.LogMode(logger.Info),
-  })
-  if err != nil {
-    log.Println(err)
-  }
-
-  // 初始化gplus
-  gplus.Init(gormDb)
-}
 
 func TestGorm(t *testing.T) {
-	dsn := "root:root@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:root@tcp(127.0.0.1:3306)/study?charset=utf8mb4&parseTime=True&loc=Local"
   var err error
   gormDb, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
     Logger: logger.Default.LogMode(logger.Info),
@@ -60,7 +47,6 @@ func TestGorm(t *testing.T) {
   if err != nil {
     log.Println(err)
   }
-
   // 初始化gplus
   gplus.Init(gormDb)
 
