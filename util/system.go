@@ -4,8 +4,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Init() {
-	DbInit("root:123456@tcp(127.0.0.1:3306)/study?charset=utf8mb4&parseTime=True&loc=Local")
+func init() {
+	DbInit("root:root@tcp(127.0.0.1:3306)/study?charset=utf8mb4&parseTime=True&loc=Local")
 }
 
 var app  *fiber.App
