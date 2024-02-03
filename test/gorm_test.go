@@ -35,6 +35,10 @@ type User struct {
   CreatedAt time.Time
   UpdatedAt time.Time
 }
+type Config struct {
+	Id  string 
+	Name string
+}
 
 var gormDb *gorm.DB
 
@@ -57,6 +61,8 @@ func TestGorm(t *testing.T) {
     log.Println("user:", user)
   }
 
-	
+  config, _ := gplus.SelectList[Config](nil)
+
+  log.Println("config:", config)
 
 }
