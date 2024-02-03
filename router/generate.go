@@ -15,7 +15,48 @@ func init(){
 	api := app.Group("/gen")
 	api.Get("/", gen)
 
-	api.Get("/list", genlist)
+	api.Post("/list", genlist)
+	api.Get("get",genget)
+	api.Post("/detail", gendetail)
+
+	api.Post("/add", genadd)
+	api.Post("/delete", genudelete)
+	api.Post("/update", genupdate)
+
+	api.Post("/export", genexport)
+	api.Post("/import", genimport)
+
+}
+
+func genimport(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
+}
+func genexport(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
+}
+func genget(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
+}
+func genadd(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
+}
+func genudelete(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
+}
+func genupdate(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
 }
 func genlist(c *fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
@@ -23,6 +64,11 @@ func genlist(c *fiber.Ctx) error {
 	return AppResult(c).Success(config)
 }
 
+func gendetail(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
+}
 func gen(c *fiber.Ctx) error {
 	
 	return AppResult(c).Success()
