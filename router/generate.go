@@ -39,24 +39,32 @@ func genexport(c *fiber.Ctx) error {
 	return AppResult(c).Success(config)
 }
 func genget(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	config, _ := gplus.SelectById[Config]("1")
   
 	return AppResult(c).Success(config)
 }
 func genadd(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	config := Config{
+		Name: "test",
+		Id: "1",
+	}
+	 gplus.Insert[Config](&config)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success("添加成功")
 }
 func genudelete(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	gplus.DeleteById[Config]("1")
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success("删除成功")
 }
 func genupdate(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	config := Config{
+		Name: "test",
+		Id: "1",
+	}
+	gplus.UpdateById[Config](&config)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success("更新成功")
 }
 func genlist(c *fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
