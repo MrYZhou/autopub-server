@@ -7,3 +7,4 @@ chunk*
 main
 test/local_test.go
 .air.toml
+tmp
