@@ -11,33 +11,29 @@ import (
 // 代码生成相关
 func init(){
 	app := App()
-	// 创建子路由
 	api := app.Group("/gen")
-	api.Get("/", gen)
-
 	api.Post("/list", genlist)
 	api.Get("/get/:id",genget)
 	api.Post("/detail/:id", gendetail)
-
 	api.Post("/add", genadd)
 	api.Get("/delete/:id", genudelete)
 	api.Post("/update", genupdate)
-
 	api.Post("/export", genexport)
 	api.Post("/import", genimport)
-
 }
 
-func genimport(c *fiber.Ctx) error {
+func genlist(c *fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
   
 	return AppResult(c).Success(config)
 }
-func genexport(c *fiber.Ctx) error {
+
+func gendetail(c *fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
   
 	return AppResult(c).Success(config)
 }
+
 func genget(c *fiber.Ctx) error {
 	id:=c.Params("id")
 	config, _ := gplus.SelectById[Config](id)
@@ -67,18 +63,14 @@ func genupdate(c *fiber.Ctx) error {
   
 	return AppResult(c).Success("更新成功")
 }
-func genlist(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
-  
-	return AppResult(c).Success(config)
-}
 
-func gendetail(c *fiber.Ctx) error {
+func genimport(c *fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
   
 	return AppResult(c).Success(config)
 }
-func gen(c *fiber.Ctx) error {
-	
-	return AppResult(c).Success()
+func genexport(c *fiber.Ctx) error {
+	config, _ := gplus.SelectList[Config](nil)
+  
+	return AppResult(c).Success(config)
 }
