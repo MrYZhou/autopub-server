@@ -15,6 +15,8 @@ func App() *fiber.App{
 		app = fiber.New()
 		// 注册自定义中间件以转换上下文
 		app.Use(CtxMiddleware)
+		
+		
 	}
 	return app
 }
