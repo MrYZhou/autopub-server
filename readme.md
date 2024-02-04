@@ -13,3 +13,8 @@ router controler层写路由,前置校验，少部分简单的业务逻辑
 server service层,写业务逻辑
 test 测试
 util 工具和系统结构和初始化相关代码
+
+启动:
+air init
+
+air -d
