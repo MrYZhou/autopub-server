@@ -1,7 +1,7 @@
 package api
 
-// web应用的模型
+//对象模型
 type Config struct {
-	Id  string `json:"id"`  
-	Name string `json:"name"` 
+	Id  string  
+	Name string 
 }
