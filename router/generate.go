@@ -16,11 +16,11 @@ func init(){
 	api.Get("/", gen)
 
 	api.Post("/list", genlist)
-	api.Get("get",genget)
-	api.Post("/detail", gendetail)
+	api.Get("/get/:id",genget)
+	api.Post("/detail/:id", gendetail)
 
 	api.Post("/add", genadd)
-	api.Post("/delete", genudelete)
+	api.Get("/delete/:id", genudelete)
 	api.Post("/update", genupdate)
 
 	api.Post("/export", genexport)
@@ -39,7 +39,8 @@ func genexport(c *fiber.Ctx) error {
 	return AppResult(c).Success(config)
 }
 func genget(c *fiber.Ctx) error {
-	config, _ := gplus.SelectById[Config]("1")
+	id:=c.Params("id")
+	config, _ := gplus.SelectById[Config](id)
   
 	return AppResult(c).Success(config)
 }
