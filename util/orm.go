@@ -23,7 +23,7 @@ func getId() string{
 var gormDb *gorm.DB
 func DbInit(url string) {
   var err error
-  gormDb, err = gorm.Open(mysql.Open(url), &gorm.Config{
+  gormDb, err = gorm.Open(mysql.Open(url+"?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{
     Logger: logger.Default.LogMode(logger.Info),
     NamingStrategy: schema.NamingStrategy{
       TablePrefix: "",   // 数据库表前缀
