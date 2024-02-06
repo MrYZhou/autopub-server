@@ -21,21 +21,26 @@ func getId() string{
 
 
 var gormDb *gorm.DB
-func DbInit(url string) {
+var gormDbMap = make(map[string]*gorm.DB)
+
+func DbChange(tag string){
+ // gplus的连接的数据库
+ gormDb := gormDbMap[tag]
+ gplus.Init(gormDb)
+}
+func DbInit(tag string,url string) {
   var err error
   gormDb, err = gorm.Open(mysql.Open(url+"?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{
     Logger: logger.Default.LogMode(logger.Info),
     NamingStrategy: schema.NamingStrategy{
       TablePrefix: "",   // 数据库表前缀
       SingularTable: true, // 不用给表名加复数
-      NoLowerCase: false, // 要不要把表面全小写
+      NoLowerCase: false, // 要不要把表名全小写
     },
     // Logger: logger.Discard, // 不输出日志
   })
   if err != nil {
     log.Println(err)
   }
-
-  // 初始化gplus
-  gplus.Init(gormDb)
+  gormDbMap[tag] = gormDb 
 }

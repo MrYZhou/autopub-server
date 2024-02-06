@@ -11,7 +11,9 @@ func init() {
 	if dbUrl == "" {
 		dbUrl = "root:root@tcp(127.0.0.1:3306)/study" 
 	}
-	DbInit(dbUrl)
+	DbInit("default",dbUrl)
+	DbChange("default")
+	
 }
 
 var app  *fiber.App
