@@ -1,11 +1,17 @@
 package util
 
 import (
+	"os"
+
 	"github.com/gofiber/fiber/v2"
 )
 
 func init() {
-	DbInit("root:root@tcp(127.0.0.1:3306)/study?charset=utf8mb4&parseTime=True&loc=Local")
+	host:= os.Getenv("host")
+	if host == "" {
+		host = "127.0.0.1"
+	}
+	DbInit("root:root@tcp("+host+":3306)/study?charset=utf8mb4&parseTime=True&loc=Local")
 }
 
 var app  *fiber.App

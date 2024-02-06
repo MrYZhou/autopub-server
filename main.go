@@ -20,7 +20,7 @@ func main() {
 	Router()
 
 	// 设置服务器地址
-	mode := os.Getenv("MODE")
+	mode := os.Getenv("mode")
 	url := "127.0.0.1:8083"
 	if mode == "production" {
 		url = "0.0.0.0:8083"
