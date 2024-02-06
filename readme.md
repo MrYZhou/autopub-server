@@ -15,6 +15,7 @@ test 测试
 util 工具和系统结构和初始化相关代码
 
 启动:
-air init
-
-air -d
+方式一：有下载air
+air
+方式二：
+go run .
