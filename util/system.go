@@ -7,11 +7,11 @@ import (
 )
 
 func init() {
-	host:= os.Getenv("host")
-	if host == "" {
-		host = "127.0.0.1"
+	dbUrl:= os.Getenv("dbUrl")
+	if dbUrl == "" {
+		dbUrl = "root:root@tcp(127.0.0.1:3306)/study" 
 	}
-	DbInit("root:root@tcp("+host+":3306)/study?charset=utf8mb4&parseTime=True&loc=Local")
+	DbInit(dbUrl+"?charset=utf8mb4&parseTime=True&loc=Local")
 }
 
 var app  *fiber.App
