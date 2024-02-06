@@ -22,7 +22,7 @@ func main() {
 	// 设置服务器地址
 	mode := os.Getenv("mode")
 	url := "127.0.0.1:8083"
-	if mode == "production" {
+	if mode != "" {
 		url = "0.0.0.0:8083"
 	}
 	if err := app.Listen(url); err != nil {
