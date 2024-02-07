@@ -8,7 +8,11 @@ router controler层写路由,前置校验，少部分简单的业务逻辑<br />
 go get 或 go install
 <a name="c7UlQ"></a>
 ### 启动
-方式一：下载air([https://github.com/cosmtrek/air)](https://github.com/cosmtrek/air))，热部署启动<br />air<br />方式二：<br />go run .
+方式一：下载air([https://github.com/cosmtrek/air)](https://github.com/cosmtrek/air))，热部署启动<br />
+
+go install github.com/cosmtrek/air@latest <br />
+
+air<br />方式二：<br />go run .
 
 <a name="ka6CV"></a>
 ## 部署
