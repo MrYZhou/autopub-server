@@ -28,9 +28,8 @@ func pubweb(c *fiber.Ctx) error {
 	if err := c.BodyParser(&model); err != nil {
 		return AppResult(c).Fail("Invalid JSON body")
 	}
-
-	err := Pubweb(model)
-	if err != nil {
+	
+	if err := Pubweb(model); err != nil {
 		return AppResult(c).Fail(err.Error())
 	}
 	return AppResult(c).Success(model,"部署web完成")
@@ -42,10 +41,10 @@ func pubjava(c *fiber.Ctx) error {
 	if err := c.BodyParser(&model); err != nil {
 		return AppResult(c).Fail("Invalid JSON body")
 	}
-	err := Pubjava(model)
-	if err != nil {
+	
+	if err := Pubjava(model);err != nil {
 		return AppResult(c).Fail(err.Error())
 	}
 	return AppResult(c).Success(model,"部署java完成")
-
+	
 }
