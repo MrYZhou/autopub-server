@@ -16,9 +16,6 @@ air<br />方式二：<br />go run .
 
 <a name="ka6CV"></a>
 ## 部署
-<a name="fd8wE"></a>
-### 构建测试镜像
-docker build -f dockerfile-test -t fibertest .
 <a name="LsvlL"></a>
 ### 构建正式镜像
 docker build -f dockerfile -t fiber .
