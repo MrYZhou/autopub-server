@@ -23,6 +23,11 @@ docker build -f dockerfile-test -t fibertest .
 ### 构建正式镜像
 docker build -f dockerfile -t fiber .
 
+### 运行镜像
+docker run  -d -p 8085:8083 --name fiber --restart always 
+-e mode=production -e dbUrl="root:root@tcp(192.168.3.1:3306)/study" 
+-e GOPROXY=https://goproxy.cn,direct fiber
+
 <a name="JAkhv"></a>
 ### 本地打包
 go build -ldflags '-w -s' .<br />upx压缩(可选进一步压缩打包大小)

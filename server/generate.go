@@ -1,4 +1,4 @@
-package api
+package server
 
 //对象模型
 type Config struct {
