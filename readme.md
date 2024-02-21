@@ -11,8 +11,9 @@ go get 或 go install
 方式一：下载air([https://github.com/cosmtrek/air)](https://github.com/cosmtrek/air))，热部署启动<br />
 
 go install github.com/cosmtrek/air@latest <br />
+air<br /><br />
 
-air<br />方式二：<br />go run .
+方式二：<br /><br />go run .
 
 <a name="ka6CV"></a>
 ## 部署
@@ -21,9 +22,7 @@ air<br />方式二：<br />go run .
 docker build -f dockerfile -t fiber .
 
 ### 运行镜像
-docker run  -d -p 8085:8083 --name fiber --restart always 
--e mode=production -e dbUrl="root:root@tcp(192.168.3.1:3306)/study" 
--e GOPROXY=https://goproxy.cn,direct fiber
+docker run  -d -p 8085:8083 --name fiber --restart always -e mode=production -e dbUrl="root:root@tcp(192.168.3.1:3306)/study" fiber
 
 <a name="JAkhv"></a>
 ### 本地打包
