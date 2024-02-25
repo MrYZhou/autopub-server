@@ -7,6 +7,7 @@ import (
 	"github.com/acmestack/gorm-plus/gplus"
 	"github.com/gofiber/fiber/v2"
 )
+
 // 服务器资源保存
 func init(){
 	app := App()
@@ -40,11 +41,11 @@ func projectget(c *fiber.Ctx) error {
 	return AppResult(c).Success(config)
 }
 func projectadd(c *fiber.Ctx) error {
-	var model project
+	var model Project
 	if err := c.BodyParser(&model); err != nil {
 		return AppResult(c).Fail("Invalid JSON body")
 	}
-	gplus.Insert[project](&model)
+	gplus.Insert[Project](&model)
   
 	return AppResult(c).Success("添加成功")
 }

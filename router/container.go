@@ -7,6 +7,7 @@ import (
 	"github.com/acmestack/gorm-plus/gplus"
 	"github.com/gofiber/fiber/v2"
 )
+
 // 容器操作
 func init(){
 	app := App()
@@ -40,11 +41,11 @@ func containerget(c *fiber.Ctx) error {
 	return AppResult(c).Success(config)
 }
 func containeradd(c *fiber.Ctx) error {
-	var model container
+	var model Container
 	if err := c.BodyParser(&model); err != nil {
 		return AppResult(c).Fail("Invalid JSON body")
 	}
-	gplus.Insert[container](&model)
+	gplus.Insert[Container](&model)
   
 	return AppResult(c).Success("添加成功")
 }
