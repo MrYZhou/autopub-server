@@ -1,5 +1,4 @@
 .env
-.vscode
 chunk*
 *.jar
 *.exe
@@ -9,3 +8,4 @@ test/local_test.go
 .air.toml
 tmp
 air
+
