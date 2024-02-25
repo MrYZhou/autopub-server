@@ -23,22 +23,22 @@ func init(){
 }
 
 func containerlist(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	container, _ := gplus.SelectList[Container](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(container)
 }
 
 func containerdetail(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	container, _ := gplus.SelectList[Container](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(container)
 }
 
 func containerget(c *fiber.Ctx) error {
 	id:=c.Params("id")
-	config, _ := gplus.SelectById[Config](id)
+	container, _ := gplus.SelectById[Container](id)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(container)
 }
 func containeradd(c *fiber.Ctx) error {
 	var model Container
@@ -50,27 +50,27 @@ func containeradd(c *fiber.Ctx) error {
 	return AppResult(c).Success("添加成功")
 }
 func containerudelete(c *fiber.Ctx) error {
-	gplus.DeleteById[Config]("1")
+	gplus.DeleteById[Container]("1")
   
 	return AppResult(c).Success("删除成功")
 }
 func containerupdate(c *fiber.Ctx) error {
-	config := Config{
+	container := Container{
 		Name: "test",
 		Id: "1",
 	}
-	gplus.UpdateById[Config](&config)
+	gplus.UpdateById[Container](&container)
   
 	return AppResult(c).Success("更新成功")
 }
 
 func containerimport(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	container, _ := gplus.SelectList[Container](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(container)
 }
 func containerexport(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	container, _ := gplus.SelectList[Container](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(container)
 }

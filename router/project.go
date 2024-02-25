@@ -23,22 +23,22 @@ func init(){
 }
 
 func projectlist(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	project, _ := gplus.SelectList[Project](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(project)
 }
 
 func projectdetail(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	project, _ := gplus.SelectList[Project](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(project)
 }
 
 func projectget(c *fiber.Ctx) error {
 	id:=c.Params("id")
-	config, _ := gplus.SelectById[Config](id)
+	project, _ := gplus.SelectById[Project](id)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(project)
 }
 func projectadd(c *fiber.Ctx) error {
 	var model Project
@@ -50,27 +50,27 @@ func projectadd(c *fiber.Ctx) error {
 	return AppResult(c).Success("添加成功")
 }
 func projectudelete(c *fiber.Ctx) error {
-	gplus.DeleteById[Config]("1")
+	gplus.DeleteById[Project]("1")
   
 	return AppResult(c).Success("删除成功")
 }
 func projectupdate(c *fiber.Ctx) error {
-	config := Config{
+	project := Project{
 		Name: "test",
 		Id: "1",
 	}
-	gplus.UpdateById[Config](&config)
+	gplus.UpdateById[Project](&project)
   
 	return AppResult(c).Success("更新成功")
 }
 
 func projectimport(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	project, _ := gplus.SelectList[Project](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(project)
 }
 func projectexport(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	project, _ := gplus.SelectList[Project](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(project)
 }

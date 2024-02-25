@@ -22,22 +22,22 @@ func init(){
 }
 
 func hostlist(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	host, _ := gplus.SelectList[Host](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(host)
 }
 
 func hostdetail(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	host, _ := gplus.SelectList[Host](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(host)
 }
 
 func hostget(c *fiber.Ctx) error {
 	id:=c.Params("id")
-	config, _ := gplus.SelectById[Config](id)
+	host, _ := gplus.SelectById[Host](id)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(host)
 }
 func hostadd(c *fiber.Ctx) error {
 	var model Host
@@ -49,27 +49,27 @@ func hostadd(c *fiber.Ctx) error {
 	return AppResult(c).Success("添加成功")
 }
 func hostudelete(c *fiber.Ctx) error {
-	gplus.DeleteById[Config]("1")
+	gplus.DeleteById[Host]("1")
   
 	return AppResult(c).Success("删除成功")
 }
 func hostupdate(c *fiber.Ctx) error {
-	config := Config{
+	host := Host{
 		Name: "test",
 		Id: "1",
 	}
-	gplus.UpdateById[Config](&config)
+	gplus.UpdateById[Host](&host)
   
 	return AppResult(c).Success("更新成功")
 }
 
 func hostimport(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	host, _ := gplus.SelectList[Host](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(host)
 }
 func hostexport(c *fiber.Ctx) error {
-	config, _ := gplus.SelectList[Config](nil)
+	host, _ := gplus.SelectList[Host](nil)
   
-	return AppResult(c).Success(config)
+	return AppResult(c).Success(host)
 }
