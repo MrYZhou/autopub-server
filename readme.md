@@ -26,4 +26,11 @@ docker run  -d -p 8085:8083 --name fiber --restart always -e mode=production -e 
 
 <a name="JAkhv"></a>
 ### 本地打包
-go build -ldflags '-w -s' .<br />upx压缩(可选进一步压缩打包大小)
+go build -ldflags '-w -s' .
+
+<br />upx压缩(可进一步压缩打包大小)
+
+https://upx.github.io/
+```
+upx autopub-server.exe
+```
