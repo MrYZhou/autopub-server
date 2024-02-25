@@ -15,6 +15,8 @@ air<br /><br />
 
 方式二：<br /><br />go run .
 
+方式三: f5调试启动
+
 <a name="ka6CV"></a>
 ## 部署
 <a name="LsvlL"></a>

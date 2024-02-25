@@ -6,17 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-/**
-痛点:
-说实话不是很满意,但是这是go不支持类名调用方法，反射鸡肋,
-方法重载也不支持,没法写方法名相同,不同参数列表
-而且还没办法设置默认参数名,导致还要手动传一个值进来。
-可选参数也没办法设置
-
-解决:
-最后终于找的使用不定参数的方式去简化我们的统一响应模型
-*/
-
 type MyCtx struct {
 	*fiber.Ctx
 	Msg  string
@@ -59,7 +48,7 @@ func (c *MyCtx) Response(data interface{}) error {
 func (c *MyCtx) judge(params []interface{}) error {
 	// 参数为一个的时候,判断是字符串还是对象
 	if len(params) == 1 {
-		paramType := reflect.TypeOf(params[0])	
+		paramType := reflect.TypeOf(params[0])
 		if paramType.Kind() == reflect.String {
 			c.Msg = params[0].(string)
 			return c.Response(nil)

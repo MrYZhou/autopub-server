@@ -57,7 +57,6 @@ func containerudelete(c *fiber.Ctx) error {
 func containerupdate(c *fiber.Ctx) error {
 	container := Container{
 		Name: "test",
-		Id: "1",
 	}
 	gplus.UpdateById[Container](&container)
   
