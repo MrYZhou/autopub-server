@@ -1,5 +1,5 @@
 <a name="YVSBY"></a>
-## 项目结构
+## 项目结构（适合小型项目10个左右的业务模块）
 router controler层写路由,前置校验，少部分简单的业务逻辑<br />server service层,写业务逻辑<br />test 测试代码<br />util 系统和初始化相关代码
 <a name="hhs9E"></a>
 ## 项目环境
