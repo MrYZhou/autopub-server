@@ -1,3 +1,6 @@
+本仓库废弃，代码迁移到和前端项目一起管理
+https://github.com/MrYZhou/autopub-plugin
+
 <a name="YVSBY"></a>
 ## 项目结构（适合小型项目10个左右的业务模块）
 router controler层写路由,前置校验，少部分简单的业务逻辑<br />server service层,写业务逻辑<br />test 测试代码<br />util 系统和初始化相关代码
