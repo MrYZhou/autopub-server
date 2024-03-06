@@ -35,7 +35,7 @@ func DbInit(tag string,url string) {
     NamingStrategy: schema.NamingStrategy{
       TablePrefix: "",   // 数据库表前缀
       SingularTable: true, // 不用给表名加复数
-      NoLowerCase: false, // 要不要把表名全小写
+      NoLowerCase: false, // 要不要把表名全小写 .false 默认,true 转小写
     },
     // Logger: logger.Discard, // 不输出日志
   })
