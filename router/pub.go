@@ -7,6 +7,7 @@ import (
 	. "autopub-server/util"
 )
 
+// 部署应用
 func init() {
 	app := App()
 

@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// 服务器资源保存
+// 服务器管理
 func init() {
 	app := App()
 	api := app.Group("/host")

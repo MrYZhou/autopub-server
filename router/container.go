@@ -12,7 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// 容器操作
+// 容器管理
 func init() {
 	app := App()
 	api := app.Group("/container")
