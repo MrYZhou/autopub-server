@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	
+
+	"github.com/shirou/gopsutil/cpu"
 	"testing"
 	"time"
-	"github.com/shirou/gopsutil/cpu"
 )
 
 func TestCpu(t *testing.T) {

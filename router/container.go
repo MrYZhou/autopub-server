@@ -17,7 +17,6 @@ func init() {
 	app := App()
 	api := app.Group("/container")
 	api.Post("/list", containerlist)
-	api.Get("tes", tes)
 	api.Get("/get/:id", containerget)
 	api.Post("/detail/:id", containerdetail)
 	api.Post("/add", containeradd)
@@ -26,20 +25,28 @@ func init() {
 	api.Post("/export", containerexport)
 	api.Post("/import", containerimport)
 }
-func tes(c *fiber.Ctx) error {
-	// 创建一个Docker客户端实例
-	// docker20版本
+
+// 创建一个Docker客户端实例
+func getCli() (*client.Client, error) {
+
+	// docker20.x版本匹配的sdk是旧版的1.41
 	// opts := []client.Opt{
 	// 	client.WithVersion("1.41"),
 	// }
 	// cli, err := client.NewClientWithOpts(opts...)
 
+	// 新版本连接写法
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		log.Println("Error creating docker client:", err)
-
 	}
+	return cli, err
+}
 
+func containerlist(c *fiber.Ctx) error {
+	// todo 获取不同主机的信息,遍历主机获取所有docker运行容器
+	// container, _ := gplus.SelectList[Container](nil)
+	cli, err := getCli()
 	// 调用API获取所有正在运行的容器
 	containers, err := cli.ContainerList(context.Background(), container.ListOptions{})
 	if err != nil {
@@ -58,16 +65,25 @@ func tes(c *fiber.Ctx) error {
 	}
 	return AppResult(c).Success(mycontainer)
 }
-func containerlist(c *fiber.Ctx) error {
-	container, _ := gplus.SelectList[Container](nil)
-
-	return AppResult(c).Success(container)
-}
 
 func containerdetail(c *fiber.Ctx) error {
 	container, _ := gplus.SelectList[Container](nil)
 
 	return AppResult(c).Success(container)
+}
+func containerstart(c *fiber.Ctx) error {
+	// 镜像id
+	id := c.Params("id")
+	cli, _ := getCli()
+	cli.ContainerStart(context.Background(), id, container.StartOptions{})
+	return AppResult(c).Success()
+}
+func containerrestart(c *fiber.Ctx) error {
+	// 容器id
+	id := c.Params("id")
+	cli, _ := getCli()
+	cli.ContainerRestart(context.Background(), id, container.StopOptions{})
+	return AppResult(c).Success()
 }
 
 func containerget(c *fiber.Ctx) error {
@@ -79,7 +95,7 @@ func containerget(c *fiber.Ctx) error {
 func containeradd(c *fiber.Ctx) error {
 	var model Container
 	if err := c.BodyParser(&model); err != nil {
-		return AppResult(c).Fail("Invalid JSON body")
+		return AppResult(c).Fail("请求体数据解析错误")
 	}
 	gplus.Insert[Container](&model)
 

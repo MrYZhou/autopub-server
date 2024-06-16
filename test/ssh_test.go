@@ -80,11 +80,8 @@ func TestPubJAVA(t *testing.T) {
 	fileList := c.SliceUpload(remoteJarHome, jarFilePath, 6)
 	c.ConcatRemoteFile(fileList, remoteJarFilePath)
 	c.Run("rm -rf " + strings.Join(fileList, " "))
-	
+
 }
-
-
-
 
 /*
 init 没有生成过dockerfile文件,init为false

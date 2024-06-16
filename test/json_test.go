@@ -15,8 +15,8 @@ type Blog struct {
 }
 
 type Person struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+	Name  string `json:"name"`
+	Age   int    `json:"age"`
 	Email string `json:"email,omitempty"` // 使用omitempty选项表示当字段为空时不在JSON中输出
 }
 
@@ -28,14 +28,14 @@ func TestJsonDecode(t *testing.T) {
 		t.Errorf("Error during JSON unmarshalling: %v", err)
 		return
 	}
-	fmt.Println(data) 
+	fmt.Println(data)
 }
 
 func TestJsonEncode(t *testing.T) {
 	// 创建一个Person实例
 	p := Person{
-		Name: "张三",
-		Age:  25,
+		Name:  "张三",
+		Age:   25,
 		Email: "",
 	}
 	jsonBytes, _ := json.Marshal(p)

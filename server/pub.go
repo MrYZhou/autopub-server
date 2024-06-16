@@ -39,7 +39,7 @@ func Pubjava(model JarUpload) error {
 	localJarPath := model.LocalJarPath
 	remotePath := model.RemotePath
 	pubCommand := model.PubCommand
-	execCommand :=model.ExecCommand
+	execCommand := model.ExecCommand
 	if pubCommand == "" {
 		pubCommand = "mvn -Dfile.encoding=UTF-8 package"
 	}
@@ -47,7 +47,7 @@ func Pubjava(model JarUpload) error {
 	defer con.Client.Close()
 	defer con.SftpClient.Close()
 	Info("开始打包")
-	err:=Run(javaProjectPath, pubCommand)
+	err := Run(javaProjectPath, pubCommand)
 	if err != nil {
 		return err
 	}
@@ -74,7 +74,7 @@ type JarUpload struct {
 	LocalJarPath    string `json:"localJarPath"`    // 生成的jar文件路径
 	RemotePath      string `json:"remotePath"`      // 远程路径
 	PubCommand      string `json:"pubCommand"`      // 发布命令或打包命令
-	ExecCommand			string `json:"execCommand"`     // 后置发布命令
+	ExecCommand     string `json:"execCommand"`     // 后置发布命令
 }
 
 // web应用的模型
