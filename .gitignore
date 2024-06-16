@@ -5,7 +5,6 @@ chunk*
 .VSCodeCounter
 main
 test/local_test.go
-.air.toml
 tmp
 air
 

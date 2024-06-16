@@ -11,7 +11,7 @@
         "GO_ENV": "development" // 如果有环境变量需要设置，可以在这里添加
       },
       "showLog": true,
-      "preLaunchTask": "build", // 如果你有预编译任务（如task.json中的构建任务），在此引用
+      //   "preLaunchTask": "build", // 如果你有预编译任务（如task.json中的构建任务），使用后会导致只有热更新没法断点。
       "trace": "verbose"
     }
   ]
