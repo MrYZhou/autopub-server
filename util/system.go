@@ -12,7 +12,7 @@ func App() *fiber.App {
 		// 注册自定义中间件以转换上下文
 		app.Use(CtxMiddleware)
 		// 静态文件服务
-		app.Static("/file", "./static")
+		app.Static("/file", "./resources")
 	}
 	return app
 }
