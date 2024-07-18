@@ -9,7 +9,7 @@ router 写路由,前置校验，少部分简单的业务逻辑<br />server 写�
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
 ```
-go get 或 go install
+go install
 ```
 ### 启动
 方式一：下载air([https://github.com/cosmtrek/air)](https://github.com/cosmtrek/air))，热部署启动<br />
