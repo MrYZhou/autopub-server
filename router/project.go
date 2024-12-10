@@ -1,7 +1,6 @@
 package router
 
 import (
-	. "autopub-server/server"
 	. "autopub-server/util"
 
 	"github.com/acmestack/gorm-plus/gplus"
@@ -73,4 +72,12 @@ func projectexport(c *fiber.Ctx) error {
 	project, _ := gplus.SelectList[Project](nil)
 
 	return AppResult(c).Success(project)
+}
+
+// 对象模型
+type Project struct {
+	Id       string `json:"id"`
+	Name     string `json:"name"`     // 项目名
+	Pid      string `json:"host"`     // 项目归属id
+	Document string `json:"document"` // 项目资料
 }

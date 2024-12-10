@@ -1,7 +1,6 @@
 package router
 
 import (
-	. "autopub-server/server"
 	. "autopub-server/util"
 	"context"
 	"log"
@@ -41,6 +40,13 @@ func getCli() (*client.Client, error) {
 		log.Println("Error creating docker client:", err)
 	}
 	return cli, err
+}
+
+// 对象模型
+type Container struct {
+	ContainerId string `json:"containerId"` // 容器id
+	Name        string `json:"name"`        // 容器名
+	State       string `json:"state"`       // 运行状态
 }
 
 func containerlist(c *fiber.Ctx) error {

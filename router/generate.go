@@ -1,7 +1,6 @@
 package router
 
 import (
-	. "autopub-server/server"
 	. "autopub-server/util"
 
 	"github.com/acmestack/gorm-plus/gplus"
@@ -73,4 +72,11 @@ func genexport(c *fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
 
 	return AppResult(c).Success(config)
+}
+
+
+//对象模型
+type Config struct {
+	Id   string
+	Name string
 }

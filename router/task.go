@@ -1,7 +1,7 @@
 package router
 
 import (
-	. "autopub-server/server"
+
 	. "autopub-server/util"
 
 	"github.com/acmestack/gorm-plus/gplus"
@@ -73,4 +73,12 @@ func taskexport(c *fiber.Ctx) error {
 	task, _ := gplus.SelectList[Task](nil)
 
 	return AppResult(c).Success(task)
+}
+
+//对象模型
+type Task struct {
+	Id      string `json:"id"`
+	Name    string `json:"name"`    // 任务名
+	Type    string `json:"type"`    // 任务类型
+	Content string `json:"content"` // 任务内容
 }
