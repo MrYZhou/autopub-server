@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-
 	"github.com/gofiber/fiber/v2"
 
 	. "autopub-server/router"
@@ -20,15 +18,8 @@ func main() {
 	// 自动注册路由
 	Router()
 
-	// 设置服务器地址
-	mode := os.Getenv("mode")
-	url := "127.0.0.1:8083"
-	if mode != "" {
-		url = "0.0.0.0:8083"
-	}
-
 	// 如果监听失败，则输出错误信息并终止程序
-	if err := app.Listen(url); err != nil {
+	if err := app.Listen("0.0.0.0:8083"); err != nil {
 		panic(err)
 	}
 }
