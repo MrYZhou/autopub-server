@@ -11,6 +11,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
 )
 
 var node *snowflake.Node
@@ -21,8 +22,8 @@ func getId() string {
 	return node.Generate().String()
 }
 
-type User struct {
-	ID        int64
+type Users struct {
+	ID        int64 
 	Username  string
 	Password  string
 	Address   string
@@ -34,7 +35,7 @@ type User struct {
 	UpdatedAt time.Time
 }
 type Config struct {
-	Id   string
+	Id   string   
 	Name string
 }
 
@@ -45,6 +46,11 @@ func TestGorm(t *testing.T) {
 	var err error
 	gormDb, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
+		NamingStrategy: schema.NamingStrategy{
+			TablePrefix:   "",    // 数据库表前缀
+			SingularTable: true,  // 不用给表名加复数
+			NoLowerCase:   false, // 要不要把表名全小写 .false 默认,true 转小写
+		},
 	})
 	if err != nil {
 		log.Println(err)
@@ -52,15 +58,16 @@ func TestGorm(t *testing.T) {
 	// 初始化gplus
 	gplus.Init(gormDb)
 
-	users, resultDb := gplus.SelectList[User](nil)
+	users, resultDb := gplus.SelectList[Users](nil)
 	log.Println("error:", resultDb.Error)
 	log.Println("RowsAffected:", resultDb.RowsAffected)
 	for _, user := range users {
 		log.Println("user:", user)
 	}
 
-	config, _ := gplus.SelectList[Config](nil)
+	config, _ := gplus.SelectById[Config](1)
 
 	log.Println("config:", config)
 
 }
+
