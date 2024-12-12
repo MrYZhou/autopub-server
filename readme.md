@@ -1,20 +1,14 @@
-## 项目结构
-
-适合微小型项目, 10 个左右的业务模块<br />
-
-router 写路由,前置校验,业务逻辑<br />
-test 测试代码<br />
-util 系统和初始化相关代码
-
 ## 项目环境
 
-### 安装依赖
+基于 fiber 框架的微小型项目, mysql 数据库，gplus<br />
 
-代理
+### 配置代理
 
 ```
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
+
+### 安装依赖
 
 ```
 go install
