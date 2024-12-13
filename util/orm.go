@@ -6,6 +6,7 @@ import (
 
 	"github.com/acmestack/gorm-plus/gplus"
 	"github.com/bwmarrin/snowflake"
+	"github.com/joho/godotenv"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -16,13 +17,11 @@ import (
 var node *snowflake.Node
 
 func init() {
+	// 加载 .env 文件
+	godotenv.Load()
 	dbUrl := os.Getenv("dbUrl")
-	if dbUrl == "" {
-		dbUrl = "root:root@tcp(127.0.0.1:3306)/study"
-	}
 	DbInit("default", dbUrl)
 	DbChange("default")
-
 	node, _ = snowflake.NewNode(1)
 }
 
@@ -43,6 +42,7 @@ func DbChange(tag string) {
 	gormDb := gormDbMap[tag]
 	gplus.Init(gormDb)
 }
+
 /*
 初始化库存在gormDbMap中
 
