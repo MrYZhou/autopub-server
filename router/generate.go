@@ -4,7 +4,7 @@ import (
 	. "autopub-server/util"
 
 	"github.com/acmestack/gorm-plus/gplus"
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 // 代码生成相关
@@ -21,25 +21,25 @@ func init() {
 	api.Post("/import", genimport)
 }
 
-func genlist(c *fiber.Ctx) error {
+func genlist(c fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
 
 	return AppResult(c).Success(config)
 }
 
-func gendetail(c *fiber.Ctx) error {
+func gendetail(c fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
 
 	return AppResult(c).Success(config)
 }
 
-func genget(c *fiber.Ctx) error {
+func genget(c fiber.Ctx) error {
 	id := c.Params("id")
 	config, _ := gplus.SelectById[Config](id)
 
 	return AppResult(c).Success(config)
 }
-func genadd(c *fiber.Ctx) error {
+func genadd(c fiber.Ctx) error {
 	config := Config{
 		Name: "test",
 		Id:   "1",
@@ -48,12 +48,12 @@ func genadd(c *fiber.Ctx) error {
 
 	return AppResult(c).Success("添加成功")
 }
-func genudelete(c *fiber.Ctx) error {
+func genudelete(c fiber.Ctx) error {
 	gplus.DeleteById[Config]("1")
 
 	return AppResult(c).Success("删除成功")
 }
-func genupdate(c *fiber.Ctx) error {
+func genupdate(c fiber.Ctx) error {
 	config := Config{
 		Name: "test",
 		Id:   "1",
@@ -63,19 +63,18 @@ func genupdate(c *fiber.Ctx) error {
 	return AppResult(c).Success("更新成功")
 }
 
-func genimport(c *fiber.Ctx) error {
+func genimport(c fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
 
 	return AppResult(c).Success(config)
 }
-func genexport(c *fiber.Ctx) error {
+func genexport(c fiber.Ctx) error {
 	config, _ := gplus.SelectList[Config](nil)
 
 	return AppResult(c).Success(config)
 }
 
-
-//对象模型
+// 对象模型
 type Config struct {
 	Id   string
 	Name string

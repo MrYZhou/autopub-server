@@ -3,16 +3,16 @@ package util
 import (
 	"reflect"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 type MyCtx struct {
-	*fiber.Ctx
+	fiber.Ctx
 	Msg  string
 	Code int
 }
 
-func AppResult(c *fiber.Ctx) *MyCtx {
+func AppResult(c fiber.Ctx) *MyCtx {
 	myCtx := c.Locals("myctx").(*MyCtx)
 	return myCtx
 }
@@ -29,7 +29,7 @@ func (c *MyCtx) Fail(params ...interface{}) error {
 	return c.judge(params)
 }
 
-func CtxMiddleware(c *fiber.Ctx) error {
+func CtxMiddleware(c fiber.Ctx) error {
 	ctx := &MyCtx{Ctx: c}
 	c.Locals("myctx", ctx)
 	return c.Next()

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 
 	. "autopub-server/router"
 	. "autopub-server/util"
@@ -11,7 +11,7 @@ func main() {
 	// 创建一个Fiber 应用实例
 	app := App()
 
-	app.Get("/", func(c *fiber.Ctx) error {
+	app.Get("/", func(c fiber.Ctx) error {
 		return AppResult(c).Success("autopub server")
 	})
 

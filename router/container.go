@@ -8,7 +8,7 @@ import (
 	"github.com/acmestack/gorm-plus/gplus"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 // 容器管理
@@ -49,7 +49,7 @@ type Container struct {
 	State       string `json:"state"`       // 运行状态
 }
 
-func containerlist(c *fiber.Ctx) error {
+func containerlist(c fiber.Ctx) error {
 	// todo 获取不同主机的信息,遍历主机获取所有docker运行容器
 	// container, _ := gplus.SelectList[Container](nil)
 	cli, err := getCli()
@@ -72,19 +72,19 @@ func containerlist(c *fiber.Ctx) error {
 	return AppResult(c).Success(mycontainer)
 }
 
-func containerdetail(c *fiber.Ctx) error {
+func containerdetail(c fiber.Ctx) error {
 	container, _ := gplus.SelectList[Container](nil)
 
 	return AppResult(c).Success(container)
 }
-func containerstart(c *fiber.Ctx) error {
+func containerstart(c fiber.Ctx) error {
 	// 镜像id
 	id := c.Params("id")
 	cli, _ := getCli()
 	cli.ContainerStart(context.Background(), id, container.StartOptions{})
 	return AppResult(c).Success()
 }
-func containerrestart(c *fiber.Ctx) error {
+func containerrestart(c fiber.Ctx) error {
 	// 容器id
 	id := c.Params("id")
 	cli, _ := getCli()
@@ -92,27 +92,27 @@ func containerrestart(c *fiber.Ctx) error {
 	return AppResult(c).Success()
 }
 
-func containerget(c *fiber.Ctx) error {
+func containerget(c fiber.Ctx) error {
 	id := c.Params("id")
 	container, _ := gplus.SelectById[Container](id)
 
 	return AppResult(c).Success(container)
 }
-func containeradd(c *fiber.Ctx) error {
+func containeradd(c fiber.Ctx) error {
 	var model Container
-	if err := c.BodyParser(&model); err != nil {
+	if err := c.Bind().Body(&model); err != nil {
 		return AppResult(c).Fail("请求体数据解析错误")
 	}
 	gplus.Insert[Container](&model)
 
 	return AppResult(c).Success("添加成功")
 }
-func containerudelete(c *fiber.Ctx) error {
+func containerudelete(c fiber.Ctx) error {
 	gplus.DeleteById[Container]("1")
 
 	return AppResult(c).Success("删除成功")
 }
-func containerupdate(c *fiber.Ctx) error {
+func containerupdate(c fiber.Ctx) error {
 	container := Container{
 		Name: "test",
 	}
@@ -121,12 +121,12 @@ func containerupdate(c *fiber.Ctx) error {
 	return AppResult(c).Success("更新成功")
 }
 
-func containerimport(c *fiber.Ctx) error {
+func containerimport(c fiber.Ctx) error {
 	container, _ := gplus.SelectList[Container](nil)
 
 	return AppResult(c).Success(container)
 }
-func containerexport(c *fiber.Ctx) error {
+func containerexport(c fiber.Ctx) error {
 	container, _ := gplus.SelectList[Container](nil)
 
 	return AppResult(c).Success(container)
