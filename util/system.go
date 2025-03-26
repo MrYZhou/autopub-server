@@ -3,6 +3,8 @@ package util
 import (
 	"os"
 
+	"github.com/gofiber/contrib/monitor"
+
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/static"
 )
@@ -16,6 +18,8 @@ func App() *fiber.App {
 		app.Use(CtxMiddleware)
 		// 静态文件服务
 		app.Get("/file", static.New(os.Getenv("resources")))
+		// 监控
+		app.Use("/metrics", monitor.New())
 	}
 	return app
 }
