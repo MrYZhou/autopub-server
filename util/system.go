@@ -17,7 +17,7 @@ func App() *fiber.App {
 		// 注册自定义中间件以转换上下文
 		app.Use(CtxMiddleware)
 		// 静态文件服务
-		app.Get("/file", static.New(os.Getenv("resources")))
+		app.Get("/file*", static.New(os.Getenv("resources")))
 		// 监控
 		app.Use("/metrics", monitor.New())
 	}
