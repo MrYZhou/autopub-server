@@ -3,6 +3,7 @@ package util
 import (
 	"os"
 
+	"github.com/bytedance/sonic"
 	"github.com/gofiber/contrib/monitor"
 
 	"github.com/gofiber/fiber/v3"
@@ -13,7 +14,10 @@ var app *fiber.App
 
 func App() *fiber.App {
 	if app == nil {
-		app = fiber.New()
+		app = fiber.New(fiber.Config{
+			JSONEncoder: sonic.Marshal,
+			JSONDecoder: sonic.Unmarshal,
+		})
 		// 注册自定义中间件以转换上下文
 		app.Use(CtxMiddleware)
 		// 静态文件服务
