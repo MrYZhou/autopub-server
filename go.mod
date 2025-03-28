@@ -8,7 +8,7 @@ require (
 	github.com/docker/docker v27.0.3+incompatible
 	github.com/gofiber/fiber/v3 v3.0.0-beta.4
 	github.com/joho/godotenv v1.5.1
-	gorm.io/gorm v1.25.11
+	gorm.io/gorm v1.25.12
 )
 
 require (

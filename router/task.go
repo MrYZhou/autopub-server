@@ -41,7 +41,7 @@ func taskget(c fiber.Ctx) error {
 }
 func taskadd(c fiber.Ctx) error {
 	task := Task{
-		Name: "test",
+		TaskName: "test",
 		Id:   "1",
 	}
 	gplus.Insert[Task](&task)
@@ -55,7 +55,7 @@ func taskudelete(c fiber.Ctx) error {
 }
 func taskupdate(c fiber.Ctx) error {
 	task := Task{
-		Name: "test",
+		TaskName: "test",
 		Id:   "1",
 	}
 	gplus.UpdateById[Task](&task)
@@ -77,7 +77,7 @@ func taskexport(c fiber.Ctx) error {
 // 对象模型
 type Task struct {
 	Id      string `json:"id"`
-	Name    string `json:"name"`    // 任务名
+	TaskName    string `json:"task_name"`    // 任务名
 	Type    string `json:"type"`    // 任务类型
 	Content string `json:"content"` // 任务内容
 }
