@@ -12,7 +12,7 @@ func main() {
 	app := App()
 
 	app.Get("/", func(c fiber.Ctx) error {
-		return AppResult(c).Success("autopub server")
+		return c.SendFile("index.html")
 	})
 
 	// 自动注册路由
