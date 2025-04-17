@@ -1,6 +1,8 @@
 package util
 
 import (
+	"autopub-server/common"
+	"log"
 	"os"
 
 	"github.com/bytedance/sonic"
@@ -25,6 +27,10 @@ func App() *fiber.App {
 		// app.Get("/*", static.New(os.Getenv("resources")+"/dist")) // 兜底匹配其他路径
 		// 监控
 		app.Use("/metrics", monitor.New())
+		err := common.OpenBrowser("/")
+		if err != nil {
+			log.Fatalf("无法打开浏览器: %v", err)
+		}
 	}
 	return app
 }
