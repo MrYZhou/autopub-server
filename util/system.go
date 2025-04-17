@@ -27,7 +27,7 @@ func App() *fiber.App {
 		// app.Get("/*", static.New(os.Getenv("resources")+"/dist")) // 兜底匹配其他路径
 		// 监控
 		app.Use("/metrics", monitor.New())
-		err := common.OpenBrowser("/")
+		err := common.OpenBrowser(os.Getenv("host"))
 		if err != nil {
 			log.Fatalf("无法打开浏览器: %v", err)
 		}
