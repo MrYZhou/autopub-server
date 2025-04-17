@@ -12,7 +12,8 @@ func main() {
 	app := App()
 
 	app.Get("/", func(c fiber.Ctx) error {
-		return c.SendFile("index.html")
+		// return c.SendFile("index.html")
+		return c.Redirect().To("https://chat.baidu.com/search")
 	})
 
 	// 自动注册路由
