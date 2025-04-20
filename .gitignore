@@ -8,3 +8,4 @@ test/local_test.go
 tmp
 air
 *.exe
+*/dist*

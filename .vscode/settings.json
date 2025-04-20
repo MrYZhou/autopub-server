@@ -10,6 +10,7 @@
         "**/.air.toml":true,
         "**/.gitignore":true,
         "**/go.sum":true,
-        "**/init.sql":true
+        "**/init.sql":true,
+        "go.mod":true
     }
 }
