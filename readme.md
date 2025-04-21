@@ -50,4 +50,6 @@ https://github.com/upx/upx/releases
 
 ```
 upx autopub-server.exe
+
+upx --best --lzma autopub-server.exe
 ```

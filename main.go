@@ -12,6 +12,9 @@ import (
 //go:embed .env
 var embedDir embed.FS
 
+// go:embed resources
+var embedResources embed.FS
+
 func main() {
 	// 创建一个Fiber 应用实例
 	app := App()
