@@ -1,13 +1,16 @@
 package main
 
 import (
+	. "autopub-server/router"
+	. "autopub-server/util"
+	"embed"
 	"os"
 
 	"github.com/gofiber/fiber/v3"
-
-	. "autopub-server/router"
-	. "autopub-server/util"
 )
+
+//go:embed .env
+var embedDir embed.FS
 
 func main() {
 	// 创建一个Fiber 应用实例
