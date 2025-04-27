@@ -7,5 +7,5 @@ main
 test/local_test.go
 tmp
 air
-*.exe
+*.exe*
 */dist*

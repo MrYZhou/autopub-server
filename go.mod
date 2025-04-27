@@ -1,6 +1,6 @@
 module autopub-server
 
-go 1.23.7
+go 1.24.2
 
 require (
 	github.com/MrYZhou/outil v1.15.0
