@@ -12,7 +12,7 @@ import (
 //go:embed .env
 var embedDir embed.FS
 
-// go:embed resources
+//go:embed resources/**
 var embedResources embed.FS
 
 func main() {
