@@ -38,6 +38,7 @@ require (
 	github.com/bytedance/sonic v1.13.2
 	github.com/gofiber/contrib/monitor v0.1.0
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/joho/godotenv v1.5.1
 	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/kr/fs v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect

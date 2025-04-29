@@ -7,6 +7,7 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/gofiber/contrib/monitor"
+	"github.com/joho/godotenv"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/static"
@@ -16,6 +17,11 @@ var app *fiber.App
 
 func App() *fiber.App {
 	if app == nil {
+		// 加载根目录下的.env文件
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 		app = fiber.New(fiber.Config{
 			JSONEncoder:       sonic.Marshal,
 			JSONDecoder:       sonic.Unmarshal,
@@ -28,7 +34,7 @@ func App() *fiber.App {
 		app.Get("/*", static.New(os.Getenv("resources")+"/dist")) // 兜底匹配其他路径
 		// 监控
 		app.Use("/metrics", monitor.New())
-		err := common.OpenBrowser("http://" + os.Getenv("host"))
+		err = common.OpenBrowser("http://" + os.Getenv("host"))
 		if err != nil {
 			log.Fatalf("无法打开浏览器: %v", err)
 		}

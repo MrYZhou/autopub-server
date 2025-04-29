@@ -41,8 +41,8 @@ docker run  -d -p 8085:8083 --name fiber --restart always -e mode=production -e 
 ### 方式二.本地打包
 
 ```
-go build -ldflags "-w -s" .
-go build -ldflags "-H windowsgui -w -s" .
+go build -ldflags "-w -s" -trimpath .
+go build -ldflags "-H windowsgui -w -s" -trimpath .
 ```
 
 upx 压缩(可进一步压缩打包大小)
