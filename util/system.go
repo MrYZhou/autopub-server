@@ -10,6 +10,7 @@ import (
 	"github.com/joho/godotenv"
 
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 	"github.com/gofiber/fiber/v3/middleware/static"
 )
 
@@ -27,6 +28,14 @@ func App() *fiber.App {
 			JSONDecoder:       sonic.Unmarshal,
 			ReduceMemoryUsage: true,
 		})
+		// 启用 CORS 中间件
+		app.Use(cors.New(cors.Config{
+			AllowOrigins:        []string{"*"},                                                        // 明确允许的域名列表
+			AllowMethods:        []string{"GET", "POST", "HEAD", "PUT", "DELETE", "PATCH", "OPTIONS"}, // 覆盖所有常用方法
+			AllowHeaders:        []string{"Origin", "Content-Type", "Accept", "Authorization"},        // 包含常见请求头
+			AllowCredentials:    false,                                                                // 如需携带 Cookie 或认证头需启用
+			AllowPrivateNetwork: true,
+		}))
 		// 注册自定义中间件以转换上下文
 		app.Use(CtxMiddleware)
 		// 静态文件服务
