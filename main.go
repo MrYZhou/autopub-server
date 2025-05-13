@@ -20,7 +20,7 @@ func main() {
 	app := App()
 
 	app.Get("/", func(c fiber.Ctx) error {
-		return c.SendFile("index.html")
+		return c.Redirect().To("https://larryer.xyz/")
 	})
 
 	// 自动注册路由

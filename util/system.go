@@ -40,7 +40,7 @@ func App() *fiber.App {
 		app.Use(CtxMiddleware)
 		// 静态文件服务
 		app.Get("/file*", static.New(os.Getenv("resources")))
-		app.Get("/*", static.New(os.Getenv("resources")+"/dist")) // 兜底匹配其他路径
+		// app.Get("/*", static.New(os.Getenv("resources")+"/dist")) // 兜底匹配其他路径
 		// 监控
 		app.Use("/metrics", monitor.New())
 		err = common.OpenBrowser("http://" + os.Getenv("host"))
