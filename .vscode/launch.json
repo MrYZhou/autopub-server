@@ -13,6 +13,19 @@
       "showLog": true,
       //   "preLaunchTask": "build", // 如果你有预编译任务（如task.json中的构建任务），使用后会导致只有热更新没法断点。
       "trace": "verbose"
+    },
+    {
+      "name": "AutoPub2",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/main.go",
+      "env": {
+        "mode": "development" // 如果有环境变量需要设置，可以在这里添加
+      },
+      "showLog": true,
+      "preLaunchTask": "build", // 如果你有预编译任务（如task.json中的构建任务），使用后会导致只有热更新没法断点。
+      "trace": "verbose"
     }
   ]
 }
