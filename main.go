@@ -27,7 +27,7 @@ func main() {
 	Router()
 
 	// 如果监听失败，则输出错误信息并终止程序
-	if err := app.Listen(os.Getenv("host")); err != nil {
+	if err := app.Listen(os.Getenv("serverHost")); err != nil {
 		panic(err)
 	}
 }
