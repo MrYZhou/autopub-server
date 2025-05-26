@@ -30,14 +30,17 @@ func start(c fiber.Ctx) error {
 	defer con.Client.Close()
 	defer con.SftpClient.Close()
 	for _, action := range model.Actions {
-		DoAction(con, action)
+		log.Println("\n<========== " + action.Name + "开始 ==========>")
+		err := DoAction(con, action)
+		if err != nil {
+			log.Fatal("\n<========== " + action.Name + "执行失败 ==========>")
+		} else {
+			log.Println("\n<========== " + action.Name + "结束 ==========>")
+		}
 	}
 	return AppResult(c).Success()
 }
 func DoAction(cli *Cli, action Action) error {
-	if action.Name != "" {
-		log.Println("\n<========== " + action.Name + "开始 ==========>")
-	}
 	var actionType = action.ActionType
 	if actionType == "uploadDir" {
 		cli.UploadDir(action.LocalPath, action.RemotePath)
@@ -50,9 +53,9 @@ func DoAction(cli *Cli, action Action) error {
 			if err != nil {
 				return err
 			}
-		case []string:
+		case []interface{}:
 			for _, value := range execCommand {
-				err := Run(action.WorkPath, value)
+				err := Run(action.WorkPath, value.(string))
 				if err != nil {
 					return err
 				}
@@ -60,17 +63,13 @@ func DoAction(cli *Cli, action Action) error {
 		}
 	}
 
-	switch postCommand := action.PostCommand.(type) {
+	switch postCommand := interface{}(action.PostCommand).(type) {
 	case string:
 		cli.Run(postCommand)
-	case []string:
+	case []interface{}:
 		for _, value := range postCommand {
-			cli.Run(value)
+			cli.Run(value.(string))
 		}
-	}
-
-	if action.Name != "" {
-		log.Println("\n<========== " + action.Name + "结束 ==========>")
 	}
 	return nil
 }
