@@ -33,7 +33,7 @@ func start(c fiber.Ctx) error {
 		log.Println("\n<========== " + action.Name + "开始 ==========>")
 		err := DoAction(con, action)
 		if err != nil {
-			log.Fatal("\n<========== " + action.Name + "执行失败 ==========>")
+			log.Println("\n<========== " + action.Name + "执行失败 ==========>")
 		} else {
 			log.Println("\n<========== " + action.Name + "结束 ==========>")
 		}
