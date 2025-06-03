@@ -66,9 +66,11 @@ func DoAction(cli *Cli, action Action) error {
 
 	switch postCommand := interface{}(action.PostCommand).(type) {
 	case string:
+		log.Println("\n<========== 执行后置命令:" + postCommand + "==========>")
 		cli.Run(postCommand)
 	case []interface{}:
 		for _, value := range postCommand {
+			log.Println("\n<========== 执行后置命令:" + value.(string) + "==========>")
 			cli.Run(value.(string))
 		}
 	}
